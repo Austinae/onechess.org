@@ -1,0 +1,19 @@
+include ./includes/head
+	include ./includes/nav
+	.container
+		.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+			.jumbotron
+				h1.h3 Sign up
+				form(action='/signup', method='POST').form-horizontal
+					.col
+						label Username
+						input(placeholder='Enter a username', name='username', type='text', required=true).form-control
+					.col
+						label Email
+						input(placeholder='Enter your email', name='email', type='email', required=true).form-control
+					.col
+						label Password
+						input(placeholder='Enter a password', name='password', type='password', required=true).form-control
+					button.mt-3.btn.btn-primary(type='submit') Sign up
+					p.mt-3.mb-0 Already have an account? #[a(href='/login') Log in here]
+
