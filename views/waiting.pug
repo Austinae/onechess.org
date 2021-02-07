@@ -1,0 +1,25 @@
+include ./includes/head
+	include ./includes/nav
+	p Waiting for opponent
+	p(id='gameid')  #{id}
+
+	script(src="/socket.io/socket.io.js")
+	script.
+		var id = document.getElementById('gameid');
+
+
+		var socket = io();
+
+		function waiting(){
+			socket.emit('waiting', id.innerText);
+		}
+
+
+		var timer = setInterval(waiting, 3000);
+		
+		socket.on('waiting', (r)=>{
+			if(r != 0){
+				window.location.href = '/'+id.innerText;
+			}
+		});
+

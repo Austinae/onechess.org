@@ -1,10 +1,6 @@
-const router = require('express').Router();
-
-router.get('/', (req, res, next)=>{
-    res.render('index', {title: 'Ochess'});
-})
+// const router = require('express').Router();
 
 
 
 
-module.exports = router;
+// module.exports = router;

@@ -1,0 +1,20 @@
+include ./includes/head
+	include ./includes/nav
+	.form-box
+		h2 Create game
+		form(action='/create', method='POST')
+			.user-box
+				input(name='variant', type='number', required=true).form-control
+				label variant
+			//- .user-box
+			//- 	input(name='time', type='number', required=true).form-control
+			//- 	label time
+			//- .user-box
+			//- 	input(name='increment', type='number', required=true).form-control
+			//- 	label increment
+			button(type='submit') Create
+				span
+				span
+				span
+				span
+

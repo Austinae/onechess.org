@@ -1,17 +1,14 @@
-nav.navbar.navbar-expand.navbar-light.bg-light
-	.collapse.navbar-collapse
-		ul.navbar-nav.mr-auto
-			li.nav-item
-				a.nav-link(href="/") Home
-	.navbar-right
-		ul.navbar-nav.mr-auto
-			if loggedIn
-				li.nav-item
-					a.nav-link(href="/logout") Logout
-			else
-				li.nav-item
-					a.nav-link(href="/signup") Sign up
-				li.nav-item
-					a.nav-link(href="/login") Login
+.nav
+	ul
+		li
+			a(href="/") Home
+		if(loggedIn)
+			li
+				a(href="/logout") Logout
+		else
+			li
+				a(href="/signup") Sign up
+			li
+				a(href="/login") Login
 
 

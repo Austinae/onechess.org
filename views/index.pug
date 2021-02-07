@@ -1,5 +1,48 @@
 include ./includes/head
 	include ./includes/nav
+	if(username)
+		p Welcome #{username}
+	a(href="/create" role="button").button Create Game
+	#gameButtons
+
+
+	//- p
+	//- a(href="/2" role="button").button Play
+	script(src="/socket.io/socket.io.js")
+	script.
+		var socket = io();
+		var elements = [];
+
+		function joinGame(){
+			socket.emit('joinGame', this.value);
+		}
+
+		socket.on('redirect', (destination)=>{
+			window.location.href = destination;
+		})
+				
+		socket.on('getGames', (data)=>{
+			var i;
+			var node= document.getElementById("gameButtons");
+			node.querySelectorAll('*').forEach(n => n.remove());
+			for(i=0; i<data.length;i++){
+				var mydiv = document.getElementById("gameButtons");
+				var button = document.createElement('button');
+				button.value = data[i].gid;
+				button.onclick = joinGame;
+				button.innerText = "Game id: "+data[i].gid+ ", creator id: "+data[i].uid1+ ", variant: "+data[i].variant+ ", time: "+data[i].time;
+				mydiv.appendChild(button);
+				mydiv.appendChild(document.createElement('p'));
+			}
+		})
+
+		var timer = setInterval(getGames, 3000);
+		socket.emit('getGames', 'please');
+		function getGames() {
+			socket.emit('getGames', 'please');
+		}
+
+
 	
 
 	
