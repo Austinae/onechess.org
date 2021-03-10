@@ -15,7 +15,7 @@ body{
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: orange;
+	background-color: #666699;
 }
 
 
@@ -26,13 +26,12 @@ body{
 .nav li a {
 	display: block;
 	color: #DFF0D8;
-	font-size: 25px;
+	font-size: 10px;
 	text-align: center;
-	padding: 14px 16px;
-	margin: 5px;
+	padding: 8px 12px;
+	margin: 3px;
 	text-decoration: none;
-	background-color: orange;
-	border-radius: 15px;
+	border-radius: 8px;
 }
 
 .nav li a:hover {
@@ -42,7 +41,7 @@ body{
 .button:link, .button:visited {
 	background-color: #f44336;
 	color: white;
-	padding: 14px 25px;
+	padding: 10px 18px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -237,18 +236,145 @@ p {
 	transition: .5s;
 }
 
-
-#canvases {
+#gameinfo{
 	position: relative;
-	width: 400px;
-	height: 400px;
-	margin-right: auto;
-	margin-left: auto;
+	top: 7px;
+	left: 30px;
+	width: 500px;
+	height: 50px;
 }
 
 #board{
 	position: absolute;
-	margin-right: auto;
-	margin-left: auto;
-	top: 30px;
+	left: 50%;
+	top: 50%;
+	margin-top: -200px;
+	margin-left: -200px;
+}
+
+#player1{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -200px;
+	height: 50px;
+	background-color: #666699;
+}
+
+#player2{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -200px;
+	height: 50px;
+	background-color: #666699;
+}
+
+#timerplayer1{
+	position: absolute;
+	border-radius: 25px;
+	left: 50%;
+	top: 50%;
+	margin-top: -20px;
+	margin-left: 70px;
+	height: 40px;
+	width: 130px;
+	background-color: white;
+}
+
+#timerplayer2{
+	position: absolute;
+	border-radius: 25px;
+	left: 50%;
+	top: 50%;
+	margin-top: -20px;
+	margin-left: 70px;
+	height: 40px;
+	width: 130px;
+	background-color: white;
+}
+
+#sbOne{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -200px;
+	margin-left: -355px;
+}
+
+#sbTwo{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: 100px;
+	margin-left: 255px;	
+}
+
+.sb{
+	position: absolute;
+	border-radius: 25px;
+	height: 20px;
+	width: 20px;
+	background-color: #666699;	
+}
+
+#valuesOne{
+	font-size: 20px;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+#valuesTwo{
+	font-size: 20px;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+#datagameinfo{
+	font-size: 20px;
+	color: white;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+.gamestyle{
+	font-size: 30px;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+.sbPawn{
+	margin-top: -120px;
+	margin-left: 15px;
+}
+
+.sbLance{
+	margin-top: -120px;
+	margin-left: 65px;
+}
+
+.sbKnight{
+	margin-top: -120px;
+	margin-left: 115px;
+}
+
+.sbSilver{
+	margin-top: -70px;
+	margin-left: 15px;
+}
+
+.sbGold{
+	margin-top: -70px;
+	margin-left: 65px;
+}
+
+.sbBishop{
+	margin-top: -70px;
+	margin-left: 115px;
+}
+
+.sbRook{
+	margin-top: -20px;
+	margin-left: 15px;
+}
+
+.sbValues{
+	font-weight: 600;
+	color: white;
 }

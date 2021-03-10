@@ -169,22 +169,46 @@ app.get("/create", (req, res)=>{
 });
 
 app.get("/initData/:gid", (req, res)=>{
-	const query = 'SELECT * FROM "Game" WHERE gid = $1';
+	const query = 'SELECT "g".uid1, "g".uid2, "g".variant, "g".time, "g".increment, "g".live, "g".white, "g".winner, "u".username, "u".country, "u".rw, "u".rx, "u".rs FROM "Game" AS "g" INNER JOIN "User" AS "u" ON "g".gid = $1 WHERE "u".uid IN ("g".uid1, "g".uid2);';
 	const values = [req.params.gid];
 	pool.query(query, values, (err, r) =>{
 		if (err) {
 			console.log("error");
 		} else {	
 			var result = r.rows[0];
-			if(result.white == req.session.uid){
+			// Insert eyeView according to player's role 
+			if(result.white == req.session.uid){ //white
 				result.eyeView = "white";
-				result.uid = req.session.uid;
-				res.json(result);
-			}else{
+			}else if(result.uid1 == req.session.uid || result.uid2 == req.session.uid){ //black
 				result.eyeView = "black";
-				result.uid = req.session.uid;
-				res.json(result);
+			}else{ //spectator
+				result.eyeView = "spectator";
 			}
+			if(result.uid1 == result.white){
+				result.wusername = result.username;
+				result.wcountry = result.country;
+				result.wrw = result.rw;
+				result.wrx = result.rx;
+				result.wrs = result.rs;
+				result.busername = r.rows[1].username;
+				result.bcountry = r.rows[1].country;
+				result.brw = r.rows[1].rw;
+				result.brx = r.rows[1].rx;
+				result.brs = r.rows[1].rs;
+			}else{
+				result.busername = result.username;
+				result.bcountry = result.country;
+				result.brw = result.rw;
+				result.brx = result.rx;
+				result.brs = result.rs;
+				result.wusername = r.rows[1].username;
+				result.wcountry = r.rows[1].country;
+				result.wrw = r.rows[1].rw;
+				result.wrx = r.rows[1].rx;
+				result.wrs = r.rows[1].rs;
+			}
+			["white", "uid1", "uid2", "username", "country", "rw", "rx", "rs"].forEach(e => delete result[e]);
+			res.json(result);
 		}
 	});
 }) 
@@ -198,7 +222,11 @@ app.get("/:gid", (req, res)=>{
 			if(r.rows === undefined || r.rows.length == 0) {
 				res.redirect('/');
 			}else{
-				res.render('play', {title: '...Playing', loggedIn:req.session.loggedIn});
+				if(r.rows[0].variant==3){
+					res.render('play', {title: '...Playing', loggedIn:req.session.loggedIn, shogi:true});
+				}else{
+					res.render('play', {title: '...Playing', loggedIn:req.session.loggedIn});
+				}
 			}
 			// console.log(r.command + " New User");
 		}
@@ -254,7 +282,7 @@ app.post('/create', (req, res)=>{
 	const insertGameQuery = 'INSERT INTO "Game"(uid1, uid2, variant, time, increment, live, movecount) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING gid'
 	const {variant} = req.body;
 	console.log(req.body);
-	const values = [req.session.uid, 0, variant, 10, 3, false, 0];
+	const values = [req.session.uid, 0, variant, 60, 3, false, 0];
 	pool.query(insertGameQuery, values, (err, r) =>{
 		if (err) {
 			console.log(err);
@@ -360,7 +388,7 @@ io.on('connection', (socket) => {
 				const query2 = 'INSERT INTO "GameMove"(tid, gid, gamestate, timeremaining) VALUES($1, $2, $3, $4)';
 				const values2 = [r.rows[0].movecount, moveInfo.gid, moveInfo.state, null];
 				pool.query(query2, values2, (err, r) =>{
-					if (err) {
+					if (err) { 
 						console.log(err);
 					} else {
 						pool.query('COMMIT', err => {
@@ -375,10 +403,37 @@ io.on('connection', (socket) => {
 
 		});
 	});
+	
+	socket.on('gameover', (data)=>{
+		const query = 'UPDATE "Game" SET winner = $1, live = $2 WHERE gid = $3';
+		const values = [0, false, data.gid];
+
+		// if(data.type == "stalemate"){
+		// 	query = 'UPDATE "Game" SET winner = $1, live = $2 WHERE gid = $3';
+		// 	values = [0, false, data.gid];
+		// }else{
+		// 	if(data.winner=="w"){
+		// 		query = 'UPDATE "Game" SET winner = white, live = $2 WHERE gid = $3';
+		// 	}else{
+		// 		query = 'UPDATE "Game" SET winner = , live = $2 WHERE gid = $3';
+		// 	}
+		// 	values = [0, false, data.gid];
+		// }
+		pool.query(query, values, (err, r) =>{
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("game with id ", data.gid, " is over!");
+				socket.to(data.gid).emit('gameover', data.type);
+			}
+
+		});
+	});
 
 	socket.on('disconnect', () => {
 		console.log('user disconnected');
 	});
+
 });
 
 

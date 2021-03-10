@@ -1,21 +1,57 @@
 include ./includes/head
 	include ./includes/nav
+	#gameinfo
+		#datagameinfo
 	//- #canvases
-	//- 	canvas#background Please use another browser as yours does not support the HTML5 canvas tag.
-	//- 	canvas#playingfield Please use another browser as yours does not support the HTML5 canvas tag.
-	//- if (live)
-	#canvases(style="position:relative; width:400px; height:400px")
-		canvas#board(style="position:absolute;left:0px;top:0px;") This text is displayed if your browser does not support HTML5 Canvas.
+	#player1
+		#dataplayer1.gamestyle
+		#timerplayer1.gamestyle
+			span#opponenttime &nbsp;&nbsp;1
+	
+	#player2
+		#dataplayer2.gamestyle 
+		#timerplayer2.gamestyle
+			span#playertime &nbsp;&nbsp;2
 
-		//- if(international)
+	canvas#board This text is displayed if your browser does not support HTML5 Canvas.
 
+	if(shogi)
+		#sbOne
+			canvas#capturedOne(height="150px" width="150px") This text is displayed if your browser does not support HTML5 Canvas.
+			.sb.sbPawn
+				span#valuesPawnOne.sbValues &nbsp;0
+			.sb.sbLance
+				span#valuesLanceOne.sbValues  &nbsp;0
+			.sb.sbKnight
+				span#valuesKnightOne.sbValues  &nbsp;0
+			.sb.sbSilver
+				span#valuesSilverOne.sbValues  &nbsp;0
+			.sb.sbGold
+				span#valuesGoldOne.sbValues  &nbsp;0
+			.sb.sbBishop
+				span#valuesBishopOne.sbValues  &nbsp;0
+			.sb.sbRook
+				span#valuesRookOne.sbValues  &nbsp;0
+			
+		#sbTwo
+			canvas#capturedTwo(height="150px" width="150px") This text is displayed if your browser does not support HTML5 Canvas.
+			.sb.sbPawn
+				span#valuesPawnTwo.sbValues  &nbsp;0
+			.sb.sbLance
+				span#valuesLanceTwo.sbValues  &nbsp;0
+			.sb.sbKnight
+				span#valuesKnightTwo.sbValues  &nbsp;0
+			.sb.sbSilver
+				span#valuesSilverTwo.sbValues  &nbsp;0
+			.sb.sbGold
+				span#valuesGoldTwo.sbValues  &nbsp;0
+			.sb.sbBishop
+				span#valuesBishopTwo.sbValues  &nbsp;0
+			.sb.sbRook
+				span#valuesRookTwo.sbValues  &nbsp;0
 
-		if(shogi)
-			canvas#pieces(style="position:absolute;left:0px;top:0px;" height="400px" width="400px") This text is displayed if your browser does not support HTML5 Canvas.
 	script(src="/socket.io/socket.io.js")
 	script(src="scripts/game.js")
-	//- else
-		//- h1 Waiting for opponent
 
 
 
