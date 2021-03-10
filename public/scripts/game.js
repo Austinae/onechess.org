@@ -1406,28 +1406,63 @@ $( document ).ready(function() {
                 if(piece.originalType == piece.type && piece.type != "gold" && piece.type != "king"){
                     if(piece.colour == "white"){
                         if(str[1]>6 || piece.positionStr[1]>6 ){
-                            promotionConfigs.push({
-                                type:piece.type,
-                                spriteCoord:piece.spriteCoord
-                            });
+                            if(piece.type=="gold" || piece.type=="silver" || piece.type=="rook" || piece.type=="bishop"){
+                                promotionConfigs.push({
+                                    type:piece.type,
+                                    spriteCoord:piece.spriteCoord
+                                });
+                            }
                             switch(piece.type){
                                 case "pawn":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:29
-                                    });
+                                    if(str[1]==9){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:29
+                                        });
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:29
+                                        });
+                                    }
                                     break;
                                 case "lance":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:25
-                                    });
+                                    if(str[1]==9){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:25
+                                        });
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:25
+                                        });
+                                    }
                                     break;
                                 case "knight":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:21
-                                    });
+                                    if(str[1]==9 || str[1]==8){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:21
+                                        });
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:21
+                                        });
+                                    }
                                     break;
                                 case "silver":
                                     promotionConfigs.push({
@@ -1451,28 +1486,63 @@ $( document ).ready(function() {
                         }
                     }else{
                         if(str[1]<4 || piece.positionStr[1]<4){
-                            promotionConfigs.push({
-                                type:piece.type,
-                                spriteCoord:piece.spriteCoord
-                            });
+                            if(piece.type=="gold" || piece.type=="silver" || piece.type=="rook" || piece.type=="bishop"){
+                                promotionConfigs.push({
+                                    type:piece.type,
+                                    spriteCoord:piece.spriteCoord
+                                });
+                            }
                             switch(piece.type){
                                 case "pawn":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:31
-                                    });
+                                    if(str[1]==1){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:31
+                                        });
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:31
+                                        });
+                                    }
                                     break;
                                 case "lance":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:27
-                                    });
+                                    if(str[1]==1){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:27
+                                        });
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:27
+                                        });
+                                    }
                                     break;
                                 case "knight":
-                                    promotionConfigs.push({
-                                        type:"gold",
-                                        spriteCoord:23
-                                    });
+                                    if(str[1]==1 || str[1]==2){
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:23
+                                        }); 
+                                    }else{
+                                        promotionConfigs.push({
+                                            type:piece.type,
+                                            spriteCoord:piece.spriteCoord
+                                        });
+                                        promotionConfigs.push({
+                                            type:"gold",
+                                            spriteCoord:23
+                                        });
+                                    }
                                     break;
                                 case "silver":
                                     promotionConfigs.push({
