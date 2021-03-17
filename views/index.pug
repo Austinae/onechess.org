@@ -1,20 +1,22 @@
 include ./includes/head
 	include ./includes/nav
-	if(username)
-		p Welcome #{username}
-	a(href="/create" role="button").button Create Game
+	a(href="/create" role="button")#button Create Game
+	span
+	span
+	p#gamestitle &nbsp;&nbsp;Available Games
 	#gameButtons
 
-
-	//- p
-	//- a(href="/2" role="button").button Play
 	script(src="/socket.io/socket.io.js")
 	script.
 		var socket = io();
 		var elements = [];
 
 		function joinGame(){
-			socket.emit('joinGame', this.value);
+			if(#{loggedIn}){
+				socket.emit('joinGame', this.value);
+			}else{
+				alert("Please register or log in to join a game");
+			}
 		}
 
 		socket.on('redirect', (destination)=>{
@@ -28,11 +30,23 @@ include ./includes/head
 			for(i=0; i<data.length;i++){
 				var mydiv = document.getElementById("gameButtons");
 				var button = document.createElement('button');
+				button.classList.add('joinGame');
 				button.value = data[i].gid;
 				button.onclick = joinGame;
-				button.innerText = "Game id: "+data[i].gid+ ", creator id: "+data[i].uid1+ ", variant: "+data[i].variant+ ", time: "+data[i].time;
+				switch(data[i].variant){
+					case 1:
+						button.innerText = "Type: Western Chess" + ", Time Control: "+data[i].time+" min + "+data[i].increment+" seconds";
+						break;
+					case 2:
+						button.innerText = "Type: Xiangqi Chess" + ", Time Control: "+data[i].time+" min + "+data[i].increment+" seconds";
+						break;
+					case 3:
+						button.innerText = "Type: Shogi Chess" + ", Time Control: "+data[i].time+" min + "+data[i].increment+" seconds";
+						break;
+					
+				}
+				//- button.innerText = "Game id: "+data[i].gid+ ", creator id: "+data[i].uid1+ ", variant: "+data[i].variant+ ", time: "+data[i].time;
 				mydiv.appendChild(button);
-				mydiv.appendChild(document.createElement('p'));
 			}
 		})
 
@@ -41,8 +55,3 @@ include ./includes/head
 		function getGames() {
 			socket.emit('getGames', 'please');
 		}
-
-
-	
-
-	

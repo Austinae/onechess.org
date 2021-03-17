@@ -1,0 +1,133 @@
+include ./includes/head
+	include ./includes/nav
+	#rulesbg
+		#rulestxt
+			h1 Western Chess Rules
+			h2 Notice
+			p Be wary that some of the following sections apply for real-life use only and have for the sole purpose of being informative to those curious enough to take this online game to the board. 
+			p Bob and Alice are two fictional characters that will help you understand how the game is played.
+			h2 Objective
+			p Each player is responsible to his king’s safety. The game ends when a king is attacked and cannot make a legal move. This is what is known as checkmate: the king is captured which means the player responsible for that piece has failed to protect it and thus loses.
+			h2 Player and Role Arrangement 
+			p A player can be responsible for only one king’s safety. There are only two king pieces in a western chess set and they are recognizable by the cross on top of the head. One of them is white, the other is black. Both players agree on which king they will be responsible for. Bob chooses the white king and Alice agrees to play as black. This means that all white pieces now belong to Bob and all black pieces belong to Alice. The other pieces on the board are there to keep the king safe and capture the opponent king. Let us now see how to set the pieces on the board.
+			h2 Board and Piece Arrangement
+			p Two players face each other and the chessboard separates them. The board must have the checkered pattern face up. Some squares are light-colored while others are darker. Set the board so that the bottom-most left square facing you is dark. If you need more help, here's a useful video from Daniel Rensch on chess.com:
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/nAwp67IR4N4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+			p The pieces are set up in the two horizontal rows closest to each player like so:
+			img(src="https://chessboardimage.com/88888888.png" alt="Starting position board" width="200" height="200")
+			p Since Bob is white do make sure that the white pieces are closest to him. Great! Before we start making moves and checkmating your opponent you should know the rules that apply for each piece.
+			h2 Naming the pieces
+			h3 &nbsp;&nbsp; King &nbsp;&nbsp; Queen &nbsp; Rook &nbsp; Bishop  &nbsp;Knight  &nbsp; Pawn
+			img(src="https://chessboardimage.com/images/white-king@2x.png" alt="King piece" width="50" height="50" style="padding:10px;")
+			img(src="https://chessboardimage.com/images/white-queen@2x.png" alt="Queen piece" width="50" height="50" style="padding:10px;")
+			img(src="https://chessboardimage.com/images/white-rook@2x.png" alt="Rook piece" width="50" height="50" style="padding:10px;")
+			img(src="https://chessboardimage.com/images/white-bishop@2x.png" alt="Bishop piece" width="50" height="50" style="padding:10px;")
+			img(src="https://chessboardimage.com/images/white-knight@2x.png" alt="Knight piece" width="50" height="50" style="padding:10px;")
+			img(src="https://chessboardimage.com/images/white-pawn@2x.png" alt="Pawn piece" width="50" height="50" style="padding:10px;")
+			h2 Movement
+			h3 General rules
+			p Each square can only be occupied by one piece. A piece cannot capture another piece if it is of the same color. A piece cannot be placed outside of the board. A piece cannot jump over another piece except for the knight. If a piece lands on a square occupied by the opponent's piece it can capture it by setting it aside.
+			h3 Note
+			p For illustration purposes, I will display the piece's legal moves and captures by using a black pawn.
+			h3 Pieces
+			p A #[strong King] moves one square in any direction, so long as that square is not attacked by an enemy piece. King's can also do castling, see #[strong special moves] section below.
+			img(src="https://chessboardimage.com/8/8/8/2ppp3/2pKp3/2ppp3/8/8.png" alt="Board position" width="200" height="200")
+			p A #[strong Queen] moves diagonally, horizontally, or vertically any number of squares.
+			img(src="https://chessboardimage.com/3p3p/p2p2p1/1p1p1p2/2ppp3/pppQpppp/2ppp3/1p1p1p2/p2p2p1.png" alt="Board position" width="200" height="200")
+			p A #[strong Rook] moves any number of squares orthogonally. They are unable to jump over pieces. Rooks participate in castling.
+			img(src="https://chessboardimage.com/3p4/3p4/3p4/3p4/pppRpppp/3p4/3p4/3p4.png" alt="Board position" width="200" height="200")
+			p A #[strong Bishop] moves diagonally any number of squares until it hits the edge of the board or a piece.
+			img(src="https://chessboardimage.com/7p/p5p1/1p3p2/2p1p3/3B4/2p1p3/1p3p2/p5p1.png" alt="Board position" width="200" height="200")
+			p A #[strong Knight] moves in an ‘L’ shape’: two squares in a horizontal or vertical direction, then move one square horizontally or vertically.
+			img(src="https://chessboardimage.com/8/8/3p1p2/2p3p1/4N3/2p3p1/3p1p2/8.png" alt="Board position" width="200" height="200")
+			p A #[strong Pawn] moves vertically forward one square, with the option to move two squares if they have not yet moved. Pawns capture differently to how they move. They capture one square diagonally in a forward direction. Pawns must promote upon reaching the other side of the board and can morphe into any other piece, except for a king. Pawns are involved in En-Passant, see #[strong special moves] section below.
+			p On first move.
+			img(src="https://chessboardimage.com/8/8/8/8/3p4/3p4/3P4/8.png" alt="Board position" width="200" height="200")
+			p After first move.
+			img(src="https://chessboardimage.com/8/8/8/3p4/3P4/8/8/8.png" alt="Board position" width="200" height="200")
+			h2 Are you a visual learner? No worries, watch this short clip.
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/RpbQjiJ5ops" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+			h2 Captures
+			p All pieces capture in the direction of movement...
+			img(src="https://chessboardimage.com/8/8/3n4/8/8/3R4/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/3R4/8/8/8/8/8.png" alt="Board position" width="200" height="200")
+			p ...except for pawns. In the first scenario the pawn can't move any further as it's blocked by an enemy piece. In the second scenario we show how the pawn can capture sideways.
+			img(src="https://chessboardimage.com/8/8/8/3r4/3P4/8/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/2r5/3P4/8/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/2P5/8/8/8/8.png" alt="Board position" width="200" height="200")
+			h2 Special moves
+			h3 En-passant
+			p #[strong En-passant] is when a pawn captures another pawn in a special way. The condition for this capture is that the opponent's last move is a two-step forward pawn move. It looks like this. 
+			img(src="https://chessboardimage.com/8/2p5/8/1P6/8/8/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/1Pp5/8/8/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/2P5/8/8/8/8/8.png" alt="Board position" width="200" height="200")
+			p En-passant is weird and tricky so I don't blame you if you need to watch the following tutorial.
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/1q7lZilVy04" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+			h3 Castling
+			p #[strong Castling] is a special move where the king hides behind a rook which looks like a fortress. You can guess that it is a defensive move and it can only be done if the pieces between the king and the rook are vacant. Moreover, it can only be done if the king and the rook hasn't moved. Since there are two rooks there are two possible ways of castling: short-castle and long-castle. In either case the king moves two squares in the direction of the rook while the rook simply moves to the square next to the king.
+			p This is long-castling:
+			img(src="https://chessboardimage.com/8/8/8/8/8/8/8/R3K2R.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/8/8/8/8/2KR3R.png" alt="Board position" width="200" height="200")
+			p This is short-castling
+			img(src="https://chessboardimage.com/8/8/8/8/8/8/8/R3K2R.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/8/8/8/8/R4RK1.png" alt="Board position" width="200" height="200")
+			p It is important to note that the squares that the king lands on or traverses to get to that square can't be attacked by another piece. The following two scenarios aren't valid castling moves.
+			img(src="https://chessboardimage.com/8/8/8/8/8/3r4/8/R3K2R.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/8/8/3r4/8/2KR3R.png" alt="Board position" width="200" height="200")
+			p
+			img(src="https://chessboardimage.com/8/8/8/8/8/6r1/8/R3K2R.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/8/8/8/8/8/6r1/8/R4RK1.png" alt="Board position" width="200" height="200")
+			h3 Promotion
+			p #[strong Promotion] happens when a pawn reaches the far end of the board. That piece can then turn into any other piece apart from the king. It looks like the following:
+			img(src="https://chessboardimage.com/8/3P4/8/8/8/8/8/8.png" alt="Board position" width="200" height="200")
+			img(src="https://chessboardimage.com/3Q4/8/8/8/8/8/8/8.png" alt="Board position" width="200" height="200")
+			h2 Gameplay
+			p Bob and Alice now understand how to move the pieces and capture. It's time for them to play.
+			p They set up the board with Bob as white. Let's play from white/Bob's perspective.
+			img(src="https://chessboardimage.com/rnbqkbnrpppppppp8888PPPPPPPPRNBQKBNR.png" alt="Board position" width="200" height="200")
+			h3 #[strong Opening]
+			p A chess opening refers to the initial moves of a chess game, they are often memorized by those who play a lot to avoid making mistakes.
+			p It is important to remember that #[strong white plays first] and then it switches every round from there on. That is why chess players often say that they'd rather play as white as they lead the dance. Bob here plays "e4" which stands for the 5th file and 4th rank. Note that in chess terminology the vertical columns are called files and the horizontal lines are called ranks. "a1" is always the bottom-most left square from white's perspective. 
+			img(src="https://chessboardimage.com/rnbqkbnrpppppppp884P38PPPP1PPPRNBQKBNR.png" alt="Board position" width="200" height="200")
+			p Bob and Alice play a few moves and land in the middle-game.
+			h3 #[strong Middle-game]
+			p A chess middlegame is not clearly delineated from the opening. The middle-game often refers to the point of the game where both players no longer rely on theory but rather experience and line calculations - line calculation is another one of those chess terms that you'll often see written everywhere and it is defined by the act of looking at many different possible board configurations to see if you can get the upperhand. For Bob and Alice it looks like this:
+			img(src="https://chessboardimage.com/3rrnk1/1b3ppp/8/p7/1p2P3/1PN5/PBP2PPP/R3R1K1.png" alt="Board position" width="200" height="200")
+			h3 #[strong End-game]
+			p At this point of the game not many chess pieces are left on the board and if one player is at an advantage he/she must try to find a way to checkmate his/her opponent.
+			p Bob and Alice reach this end-game:
+			img(src="https://chessboardimage.com/4r3/P7/5Kpk/5p1p/5P1P/R5P1/8/8.png" alt="Board position" width="200" height="200")
+			p Bob is at an advantage because he has one more pawn than Alice. If he manages to put that pawn on the last rank he will be able to promote his pawn into something more valuable like a queen.
+			p Bob makes a move
+			img(src="https://chessboardimage.com/Q3r3/8/5Kpk/5p1p/5P1P/R5P1/8/8.png" alt="Board position" width="200" height="200")
+			p Alice makes a move
+			img(src="https://chessboardimage.com/r7/8/5Kpk/5p1p/5P1P/R5P1/8/8.png" alt="Board position" width="200" height="200")
+			p Bob makes a move
+			img(src="https://chessboardimage.com/Q3r3/8/5Kpk/5p1p/5P1P/R5P1/8/8.png" alt="Board position" width="200" height="200")
+			p Alice makes a move
+			img(src="https://chessboardimage.com/R7/8/5K1k/5ppp/5P1P/6P1/8/8.png" alt="Board position" width="200" height="200")
+			p Bob makes a move and the game is over since the black king is attacked and can no longer make a move. The black king is put down on the board and both players shake hands (under non-covid circumstances).
+			img(src="https://chessboardimage.com/7R/8/5K1k/5ppp/5P1P/6P1/8/8.png" alt="Board position" width="200" height="200")
+			h2 Stalemate, draws and repetition
+			p Stalemate is a board state where the player is unable to make a valid move and where the king isn't attacked, it is a draw.
+			p Both players can also agree on a draw.
+			p If both players repeat moves three times in a row it is a draw.
+			p The 50-move rule is one where both players play 50 moves each and haven't moved a pawn or made any captures, it is also a draw.
+			h2 Piece values for position evaluation
+			p A #[strong King] doesn't have a worth because the capture of this piece is the end of the game.
+			p A #[strong Pawn] is worth 1 point and it is what we are basing our evaluation on.
+			p A #[strong Queen] is worth 9 points.
+			p A #[strong Rook] is worth 5 points.
+			p A #[strong Bishop] is worth 3 points.
+			p A #[strong Knight] is worth 3 points.
+			h2 Conclusion
+			p Thanks for reading, I hope this tutorial was helpful.
+			h2 References
+			h3 Image board tool
+			p https://chessboardimage.com/ courtesy of the CardGames.io team, tag @cardgames_io on Twitter.
+			h3 Instructive board placement YouTube video
+			p https://www.youtube.com/embed/nAwp67IR4N4, by IM Daniel Rensch in association with the chess.com team.
+			h3 Piece movements YouTube video
+			p https://www.youtube.com/watch?v=RpbQjiJ5ops, by Coach Dat, channel link: https://www.youtube.com/channel/UCIdzWBYvOWbjLKFG5z7qwaQ
+			h3 En-passant
+			p https://www.youtube.com/watch?v=1q7lZilVy04, by IM David Pruess in association with the chess.com team.

@@ -45,6 +45,9 @@ $( document ).ready(function() {
             datagameinfo,
             opponentData,
             playerData,
+            usernames,
+            divEyeNb,
+            divMoveNb,
             // Undefined variables
             histimer, //opponent's clock
             mytimer, //player's clock
@@ -86,24 +89,11 @@ $( document ).ready(function() {
             document.getElementById("player2"),
             document.getElementById("datagameinfo"),
             document.getElementById("dataplayer1"),
-            document.getElementById("dataplayer2")
+            document.getElementById("dataplayer2"),
+            {"white":data.wusername,"black":data.busername},
+            document.getElementById("eyeNb"),
+            document.getElementById("moveNb")
             ];
-
-        // NOTES FOR TIMING STUFF
-        // USE THIS LOGIC TO SEE IF TIME IS OVER FROM PAST    
-        // console.log(new Date(2020, 1, 23)-new Date());
-        // var lalala = new Date();
-        // var serialized = JSON.stringify(lalala);
-        // var deserialized = new Date(JSON.parse(serialized));
-        // console.log(lalala);
-        // console.log(serialized);
-        // console.log(deserialized);
-
-        // var then = getFutureDate(10,10);
-        // timer1 = startTimer(then, "opponenttime");
-
-
-
 
         // If the user leaves the page, kick from room
         window.onbeforeunload = confirmExit;
@@ -247,9 +237,19 @@ $( document ).ready(function() {
         function setClockTime(millis, name){
             var cd = countdown(Date.now(), getFutureDate(millis), countdown.MINUTES | countdown.SECONDS);
             document.getElementById(name).innerHTML = "&nbsp;"+cd.minutes+":"+(cd.seconds < 10 ? '0' : '')+cd.seconds;
+            if(name == "playertime"){
+                document.getElementById("timerplayer2").style.backgroundColor = "grey";
+            }else{
+                document.getElementById("timerplayer1").style.backgroundColor = "grey";
+            }
         }
 
         function startTimer(endDate, name){
+            if(name == "playertime"){
+                document.getElementById("timerplayer2").style.backgroundColor = "white";
+            }else{
+                document.getElementById("timerplayer1").style.backgroundColor = "white";
+            }
             var timer = countdown
                 (
                     endDate, (ts)=> {
@@ -269,12 +269,15 @@ $( document ).ready(function() {
 
         function stopCountdown(timer){
             window.clearInterval(timer);
-            if(isItMyTurn()){
-                socket.emit('gameover', {gid:gid,type:"timeover",winner:returnOpponentEye(eye)});
-            }else{
-                socket.emit('gameover', {gid:gid,type:"timeover",winner:eye});
+            if(eye == "white" || eye == "black"){
+                if(isItMyTurn()){
+                    socket.emit('gameover', {gid:gid,type:"timeover",winnercolour:returnOpponentEye(eye)});
+                    alert("timeover, you lost on time");
+                }else{
+                    socket.emit('gameover', {gid:gid,type:"timeover",winnercolour:eye});
+                    alert("timeover, you won on time");
+                }
             }
-            alert("timeover");
         }
 
         function msToMinSec(millis) {
@@ -575,15 +578,6 @@ $( document ).ready(function() {
             }
 
         }
-
-        // function drawRotated(ctx, can, image, degrees){
-        //     ctx.clearRect(0,0,can.width,can.height);
-        //     ctx.save();
-        //     ctx.translate(can.width/2,can.height/2);
-        //     ctx.rotate(degrees*Math.PI/180);
-        //     ctx.drawImage(image,-image.width/2,-image.width/2);
-        //     ctx.restore();
-        // }
 
 
         class Board{ //superclass that captures and validates board events
@@ -1276,7 +1270,7 @@ $( document ).ready(function() {
                             for(var move in moves.canAttack){
                                 squareToCheck = this.inBetweenElephantJump(moves.canAttack[move], piece.positionStr); //square in between elephant jump
                                 if(!isArrayInArray(opponentOccupiedSquares.concat(myOccupiedSquares), squareToCheck)){ //is the square occupied by friendly/opponent piece
-                                    newMoves.canAttack.push(moves.canMove[move]);
+                                    newMoves.canAttack.push(moves.canAttack[move]);
                                 }
                             }
                             return newMoves;
@@ -1291,11 +1285,11 @@ $( document ).ready(function() {
                             for(var move in moves.canAttack){
                                 squareToCheck = this.inBetweenElephantJump(moves.canAttack[move], piece.positionStr); //square in between elephant jump
                                 if(!isArrayInArray(opponentOccupiedSquares.concat(myOccupiedSquares), squareToCheck)){ //is the square occupied by friendly/opponent piece
-                                    newMoves.canAttack.push(moves.canMove[move]);
+                                    newMoves.canAttack.push(moves.canAttack[move]);
                                 }
                             }
                             return newMoves;
-                        }   
+                        }       
                         break;
                     case "knight":
                         var moves;
@@ -1314,7 +1308,7 @@ $( document ).ready(function() {
                         for(var move in moves.canAttack){
                             squareToCheck = this.inBetweenElephantJump(moves.canAttack[move], piece.positionStr); //square in between knight jump
                             if(!isArrayInArray(opponentOccupiedSquares.concat(myOccupiedSquares), squareToCheck)){ //is the square occupied by friendly/opponent piece
-                                newMoves.canAttack.push(moves.canMove[move]);
+                                newMoves.canAttack.push(moves.canAttack[move]);
                             }
                         }
                         return newMoves;
@@ -1922,7 +1916,7 @@ $( document ).ready(function() {
                                 }
 
                                 if(board.moveNb!=0){ //en-passant in western chess
-                                    if(newState.lastMove.piece.type=="pawn" && variant == 1){ 
+                                    if(newState.lastMove.piece.type=="pawn" && variant == 1 && piece.type == "pawn"){ 
                                         if((Math.abs(newState.lastMove.originCoord[1] - newState.lastMove.destinationCoord[1]))>1){
                                             if(newState.lastMove.piece.colour=="white"){
                                                 if(posToStr([newState.lastMove.originCoord[0],newState.lastMove.originCoord[1]+1])==str){
@@ -2055,12 +2049,17 @@ $( document ).ready(function() {
                         }
                         socket.emit('sendGameState', {gid:gid,state:newState});
                         board.gameStates.push(newState);
-                        board.moveNb += 1; 
+                        board.moveNb += 1;
+                        board.eyeNb += 1;
                         board.focus.piece = null;
                         board.moves = {};
                         board.promoting = false;
                         board.promotionConfigs = [];
-                        board.createPrisonerList();
+                        divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
+                        divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
+                        if(variant==3){
+                            board.createPrisonerList();
+                        }
                         draw(board, board.moveNb)
                     }
                     else{
@@ -2078,10 +2077,10 @@ $( document ).ready(function() {
                 playerData.style.width ="400px";
                 if(eye=="white"){
                     opponentData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrw+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+wrw+")"; 
+                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brw+")"; 
                 }else{
                     opponentData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brw+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+brw+")";
+                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrw+")";
                 }
                 board = new InternationalBoard(eyeView);
                 break;
@@ -2091,10 +2090,10 @@ $( document ).ready(function() {
                 playerData.style.width ="450px";
                 if(eye=="white"){
                     opponentData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrx+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+wrx+")"; 
+                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brx+")"; 
                 }else{
                     opponentData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brx+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+brx+")";
+                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrx+")";
                 }
                 board = new XiangqiBoard(eyeView);
                 break;
@@ -2104,10 +2103,10 @@ $( document ).ready(function() {
                 playerData.style.width ="450px";
                 if(eye=="white"){
                     opponentData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrs+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+wrs+")"; 
+                    playerData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brs+")"; 
                 }else{
                     opponentData.innerHTML = "&nbsp;&nbsp;"+busername+" ("+brs+")";
-                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+brs+")";
+                    playerData.innerHTML = "&nbsp;&nbsp;"+wusername+" ("+wrs+")";
                 }
                 board = new ShogiBoard(eyeView);
                 break;
@@ -2147,6 +2146,8 @@ $( document ).ready(function() {
             socket.on('getBoardStates', (states)=>{ //on refresh or search
                 board.moveNb = states.length;
                 board.eyeNb = states.length;
+                divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
+                divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
                 if(states != null){
                     for (var state in states){
                         board.gameStates.push(states[state].gamestate);
@@ -2193,7 +2194,7 @@ $( document ).ready(function() {
                                 }
                             }
                             if(isStale){
-                                socket.emit('gameover', {gid:gid,type:"stalemate"});
+                                socket.emit('gameover', {gid:gid,type:"stalemate",winnercolour:"grey"});
                                 alert("stalemate");
                             }else{
                                 socket.emit('gameover', {gid:gid,type:"mate",winner:returnOpponentEye(eye)});
@@ -2202,31 +2203,32 @@ $( document ).ready(function() {
 
                         }
                     }
-
-                    if(isItMyTurn()){
-                        if(board.moveNb!=0){
-                            if(board.moveNb==1){
-                                mytimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "playertime")
-                            }else if(board.moveNb==2){                                        
-                                mytimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "playertime")
-                                setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "opponenttime");
-                            }else{
-                                mytimer = startTimer(getFutureDate(board.gameStates[board.moveNb-1].timeremaining.timeleftmillis) - getDateDiff(board.gameStates[board.moveNb].timeremaining.date), "playertime")
-                                setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "opponenttime");
-                            }                                
+                    if(isLive){
+                        if(isItMyTurn()){
+                            if(board.moveNb!=0){
+                                if(board.moveNb==1){
+                                    mytimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "playertime")
+                                }else if(board.moveNb==2){                                        
+                                    mytimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "playertime")
+                                    setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "opponenttime");
+                                }else{
+                                    mytimer = startTimer(getFutureDate(board.gameStates[board.moveNb-1].timeremaining.timeleftmillis) - getDateDiff(board.gameStates[board.moveNb].timeremaining.date), "playertime")
+                                    setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "opponenttime");
+                                }                                
+                            }
+                        }else{
+                            if(board.moveNb!=0){
+                                if(board.moveNb==1){
+                                    histimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "opponenttime")
+                                }else if(board.moveNb==2){
+                                    histimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "opponenttime")
+                                    setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "playertime");
+                                }else{
+                                    histimer = startTimer(getFutureDate(board.gameStates[board.moveNb-1].timeremaining.timeleftmillis) - getDateDiff(board.gameStates[board.moveNb].timeremaining.date), "opponenttime")
+                                    setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "playertime");
+                                }                                
+                            }           
                         }
-                    }else{
-                        if(board.moveNb!=0){
-                            if(board.moveNb==1){
-                                histimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "opponenttime")
-                            }else if(board.moveNb==2){
-                                histimer = startTimer(getFutureDate(time*60000 - getDateDiff(board.gameStates[board.moveNb].timeremaining.date)), "opponenttime")
-                                setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "playertime");
-                            }else{
-                                histimer = startTimer(getFutureDate(board.gameStates[board.moveNb-1].timeremaining.timeleftmillis) - getDateDiff(board.gameStates[board.moveNb].timeremaining.date), "opponenttime")
-                                setClockTime(board.gameStates[board.moveNb].timeremaining.timeleftmillis, "playertime");
-                            }                                
-                        }           
                     }
                 }
                 else{
@@ -2242,6 +2244,8 @@ $( document ).ready(function() {
                 board.gameStates.push(state);
                 board.moveNb += 1; 
                 board.eyeNb = board.moveNb;
+                divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
+                divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
                 if(variant==3){
                     board.createPrisonerList();
                 }
@@ -2283,7 +2287,7 @@ $( document ).ready(function() {
                                 }
                             }
                             if(isStale){
-                                socket.emit('gameover', {gid:gid,type:"stalemate"});
+                                socket.emit('gameover', {gid:gid,type:"stalemate",winnercolour:"grey"});
                                 pauseTimer(histimer);
                                 alert("stalemate");
                             }else{
@@ -2324,6 +2328,9 @@ $( document ).ready(function() {
                     canvasCptOne.addEventListener('mousedown', (event)=>{sbEventListener(board, "one", event)});
                 }
             }
+
+            divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
+            divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
 
             document.addEventListener('keydown', function(e) {
                 if(board.focus.piece != null){
@@ -2386,6 +2393,8 @@ $( document ).ready(function() {
                         draw(board, board.eyeNb);
                         break;
                 }
+                divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
+                divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
             });
 
         });

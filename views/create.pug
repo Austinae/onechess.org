@@ -1,20 +1,37 @@
 include ./includes/head
 	include ./includes/nav
-	.form-box
-		h2 Create game
-		form(action='/create', method='POST')
-			.user-box
-				input(name='variant', type='number', required=true).form-control
-				label variant
-			//- .user-box
-			//- 	input(name='time', type='number', required=true).form-control
-			//- 	label time
-			//- .user-box
-			//- 	input(name='increment', type='number', required=true).form-control
-			//- 	label increment
-			button(type='submit') Create
-				span
-				span
-				span
-				span
+	if loggedIn
+		.form-box
+			h2 Create game
+			form(action='/create', method='POST')
+				//- .user-box
+					//- input(name='variant', type='number', required=true).form-control
+					//- label variant
+				p Type:
+				span(style="color:white") international
+				input(type="radio" id="international" name="type" value="1" required)
+				label(for="international")
+				br  
+				span(style="color:white") xiangqi    
+				input(type="radio" id="xiangqi" name="type" value="2" required)
+				label(for="xiangqi")
+				br  
+				span(style="color:white") shogi
+				input(type="radio" id="shogi" name="type" value="3" required)
+				label(for="shogi")
+				br 
+				br
 
+				.user-box
+					input(name='time', type='number', required=true).form-control
+					label time (minutes)
+				.user-box
+					input(name='increment', type='number', required=true).form-control
+					label increment (seconds)
+				button(type='submit') Create
+					span
+					span
+					span
+					span
+	else
+		p Register or sign in to create a game

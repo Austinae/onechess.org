@@ -154,6 +154,18 @@ app.get("/login", (req, res)=>{
 	res.render('login', {title: 'Ochess', loggedIn:req.session.loggedIn, success: req.flash('success')[0]});
 });
 
+app.get("/xiangqi", (req, res)=>{
+	res.render('xiangqi', {title: 'Ochess', loggedIn:req.session.loggedIn});
+});
+
+app.get("/shogi", (req, res)=>{
+	res.render('shogi', {title: 'Ochess', loggedIn:req.session.loggedIn});
+});
+
+app.get("/western", (req, res)=>{
+	res.render('western', {title: 'Ochess', loggedIn:req.session.loggedIn});
+});
+
 
 app.get("/logout", (req, res)=>{
     req.session.destroy(err => {
@@ -280,9 +292,7 @@ app.post("/login", (req, res) => {
 
 app.post('/create', (req, res)=>{
 	const insertGameQuery = 'INSERT INTO "Game"(uid1, uid2, variant, time, increment, live, movecount) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING gid'
-	const {variant} = req.body;
-	console.log(req.body);
-	const values = [req.session.uid, 0, variant, 60, 3, false, 0];
+	const values = [req.session.uid, 0, req.body.type, req.body.time, req.body.increment, false, 0];
 	pool.query(insertGameQuery, values, (err, r) =>{
 		if (err) {
 			console.log(err);
@@ -301,7 +311,7 @@ io.on('connection', (socket) => {
 	console.log('user with id', session.uid, ' connected');
 
 	socket.on('getGames', (data)=>{ //gets games where oppponent is waiting for partner
-		const query = 'SELECT * FROM "Game" WHERE uid2 = $1';
+		const query = 'SELECT * FROM "Game" WHERE uid2 = $1 LIMIT 13';
 		pool.query(query, [0], (err, r) =>{
 			if (err) {
 				console.log(err);
@@ -405,29 +415,79 @@ io.on('connection', (socket) => {
 	});
 	
 	socket.on('gameover', (data)=>{
-		const query = 'UPDATE "Game" SET winner = $1, live = $2 WHERE gid = $3';
-		const values = [0, false, data.gid];
-
-		// if(data.type == "stalemate"){
-		// 	query = 'UPDATE "Game" SET winner = $1, live = $2 WHERE gid = $3';
-		// 	values = [0, false, data.gid];
-		// }else{
-		// 	if(data.winner=="w"){
-		// 		query = 'UPDATE "Game" SET winner = white, live = $2 WHERE gid = $3';
-		// 	}else{
-		// 		query = 'UPDATE "Game" SET winner = , live = $2 WHERE gid = $3';
-		// 	}
-		// 	values = [0, false, data.gid];
-		// }
-		pool.query(query, values, (err, r) =>{
-			if (err) {
+		const query1 = 'SELECT * FROM "Game" WHERE gid = $1';
+		pool.query(query1, [data.gid], (err, r)=>{
+			if(err){
 				console.log(err);
-			} else {
-				console.log("game with id ", data.gid, " is over!");
-				socket.to(data.gid).emit('gameover', data.type);
+			} else{
+				const uid1 = r.rows[0].uid1;
+				const uid2 = r.rows[0].uid2;
+				const white = r.rows[0].white;
+				const variant = r.rows[0].variant;
+				var loser;
+				var black;
+				var winner;
+				(white==uid1)? (black=uid2):(black=uid1);
+				(data.winnercolour=="white")?(winner=white,loser=black):(winner=black,loser=white);
+				const query2 = 'UPDATE "Game" SET winner = $1, live = $2 WHERE gid = $3';
+				var values2;
+				if(data.type=="stalemate"){
+					values2 = [null, false, data.gid];
+				}else{
+					values2 = [winner, false, data.gid];
+				}
+				console.log("winner: "+winner+", loser: "+loser);
+				pool.query(query2, values2, (err, r) =>{
+					if (err) {
+						console.log(err);
+					} else {
+						console.log("game with id ", data.gid, " is over. reason: "+data.type);
+						if (data.type == "stalemate"){
+							socket.to(data.gid).emit('gameover', data.type);
+						}
+						var query3;
+						switch(variant){
+							case 1:
+								query3 = 'UPDATE "User" SET rw = rw + 10 WHERE uid = $1;';
+								break;
+							case 2:
+								query3 = 'UPDATE "User" SET rx = rx + 10 WHERE uid = $1;';
+								break;
+							case 3:
+								query3 = 'UPDATE "User" SET rs = rs + 10 WHERE uid = $1;';
+								break;
+						}
+						pool.query(query3, [winner], (err, r)=>{
+							if(err){
+								console.log(err);
+							}else{
+								console.log("player with id "+winner+"'s rating is incremented by 10");
+								var query4;
+								switch(variant){
+									case 1:
+										query4 = 'UPDATE "User" SET rw = rw - 10 WHERE uid = $1;';
+										break;
+									case 2:
+										query4 = 'UPDATE "User" SET rx = rx - 10 WHERE uid = $1;';
+										break;
+									case 3:
+										query4 = 'UPDATE "User" SET rs = rs - 10 WHERE uid = $1;';
+										break;
+								}
+								pool.query(query4, [loser], (err, r)=>{
+									if(err){
+										console.log(err);
+									}else{
+										console.log("player with id "+loser+"'s rating is decremented by 10");
+										socket.to(data.gid).emit('gameover', data.type);
+									}
+								});
+							}
+						});
+					}
+				});
 			}
-
-		});
+		})
 	});
 
 	socket.on('disconnect', () => {

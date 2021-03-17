@@ -1,25 +1,21 @@
 include ./includes/head
 	include ./includes/nav
-	p Waiting for opponent
-	p(id='gameid')  #{id}
+	p(style="background-color: #666699; font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;") Waiting for opponent
 
 	script(src="/socket.io/socket.io.js")
 	script.
-		var id = document.getElementById('gameid');
-
-
 		var socket = io();
 
 		function waiting(){
-			socket.emit('waiting', id.innerText);
+			socket.emit('waiting', #{id});
 		}
 
 
-		var timer = setInterval(waiting, 500);
+		var timer = setInterval(waiting, 300);
 		
 		socket.on('waiting', (r)=>{
 			if(r != 0){
-				window.location.href = '/'+id.innerText;
+				window.location.href = '/'+ #{id};
 			}
 		});
 

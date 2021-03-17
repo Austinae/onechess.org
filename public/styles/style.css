@@ -38,19 +38,6 @@ body{
 	background-color: #111;
 }
 
-.button:link, .button:visited {
-	background-color: #f44336;
-	color: white;
-	padding: 10px 18px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-}
-
-.button:hover, .button:active {
-	background-color: red;
-}
-
 .header {
 	padding: 60px;
 	text-align: center;
@@ -236,14 +223,6 @@ p {
 	transition: .5s;
 }
 
-#gameinfo{
-	position: relative;
-	top: 7px;
-	left: 30px;
-	width: 500px;
-	height: 50px;
-}
-
 #board{
 	position: absolute;
 	left: 50%;
@@ -328,12 +307,6 @@ p {
 	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
 }
 
-#datagameinfo{
-	font-size: 20px;
-	color: white;
-	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
-}
-
 .gamestyle{
 	font-size: 30px;
 	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
@@ -377,4 +350,103 @@ p {
 .sbValues{
 	font-weight: 600;
 	color: white;
+}
+
+.joinGame{
+	padding: 5px;
+	margin: 5px;
+	color: white;
+	background-color: #666699;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+#gameButtons{
+	width: 500px;
+	height: 500px;
+	border: 1px solid #ccc;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#gamestitle{
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #ccc;
+	width: 500px;
+	border-radius: 10px;
+	font-weight: bold;
+}
+
+#button{
+	text-decoration: none;
+	background-color: #f44336;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px;
+	border: 50px;
+	width: 100px;
+	height: 20px;
+	border-radius: 15px;
+	color: white;
+}
+
+#gameinfo{
+	position: relative;
+	top: 7px;
+	left: 30px;
+	display: inline-block;
+}
+
+#datagameinfo{
+	font-size: 15px;
+	color: white;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+#divEyeNb{
+	width: 45px;
+	height: 45px;
+	background-color: orange;
+	margin-top: 10px;
+}
+
+#eyeNb{
+	font-size: 15px;
+	color: white;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+	
+#divMoveNb{
+	width: 45px;
+	height: 45px;
+	background-color: orange;
+	margin-top: 5px;
+}	
+
+#moveNb{
+	font-size: 20px;
+	color: white;
+	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+#rulesbg{
+	width: 800px;
+	background-color: #666699;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px; 
+}
+
+#rulestxt{
+	position: relative;
+	margin:20px;
+	top: 10px;
+}
+
+#rulestxt h1{
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-weight: 5px;
 }
