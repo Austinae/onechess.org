@@ -9,13 +9,13 @@ include ./includes/head
 			p Be wary that some of the following sections apply for real-life use only and have for the sole purpose of being informative to those curious enough to take this online game to the board. 
 			p Bob and Alice are two fictional characters that will help you understand how the game is played.
 			h2 Objective
-			p Each player is responsible to his general's safety. The game ends when a general is attacked and cannot make a legal move. This is what is known as checkmate: the general is captured which means the player responsible for that piece has failed to protect it and thus loses.
+			p Each player is responsible to his general's safety. The player with the red pieces plays first. Each turn, a player moves a piece that is currently on the board (and potentially captures an opposing piece). The game ends when a general is attacked and cannot make a legal move. This is what is known as checkmate: the general is captured which means the player responsible for that piece has failed to protect it and thus loses.
 			h2 Player and Role Arrangement 
-			p A player can be responsible for only one general's safety. There are only two general pieces in a xiangqi set. One of them is red, the other is black. Both players agree on which general they will be responsible for. Bob chooses the red general and Alice agrees to play as black. This means that all red pieces now belong to Bob and all black pieces belong to Alice. The other pieces on the board are there to keep the general safe and capture the opponent general. Let us now see how to set the pieces on the board.
+			p A player can be responsible for only one general's safety. There are only two general pieces in a xiangqi set. One of them is red, the other is black. Both players agree on which general they will be responsible for. Bob chooses the red general and Alice agrees to play as black. This means that all red pieces now belong to Bob and all black pieces belong to Alice. It also means that Bob will play first. If they decide to play another game then they alternate turns as who plays first i.e. who plays as red. The other pieces on the board are there to keep the general safe and capture the opponent general. Let us now see how to set the pieces on the board.
 			h2 Board and Piece Arrangement
 			p Two players face each other and the chessboard separates them. The board must have the decorated design face up. Notice that there is a line of emptinessin the middle of the board, this is the #[strong river] and it has a particular effect on the gameplay. Set the board so that the river is horizontal to you like so:
 			img(src="images/xiangqi/tutorial/1.png" alt="Empty board" width="200" height="200" style="padding:10px;")
-			p The pieces are set up in the two horizontal rows closest to each player like so:
+			p The pieces are set up like so:
 			img(src="images/xiangqi/tutorial/2.png" alt="Starting position board" width="200" height="200")
 			p If you're still struggling to understand how to position the board and set the pieces please watch this video:
 			iframe(width="560" height="315" src="https://www.youtube.com/embed/KTmN2hRbbms" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
@@ -88,13 +88,39 @@ include ./includes/head
 			p Both players can also agree on a draw.
 			h2 Piece values for position evaluation
 			p A #[strong General] doesn't have a worth because the capture of this piece is the end of the game.
-			p A #[strong Pawn] is worth 1 point before crossing the river and it is what we are basing our evaluation on.
-			p A #[strong Pawn] is worth 2 points after crossing the river.
-			p A #[strong Advisor] is worth 2 points.
-			p A #[strong Catapult] is worth 4.5 points.
-			p A #[strong Rook] is worth 9 points.
-			p A #[strong Elephant] is worth 2 points.
-			p A #[strong Horse] is worth 4 points.
+			table#evaluation
+				tr
+					td.tdtitle Type
+					td.tdtitle Cross river
+					td.tdtitle Evaluation
+				tr
+					td Pawn
+					td False
+					td 1
+				tr
+					td Pawn
+					td True
+					td 2
+				tr
+					td Advisor
+					td False
+					td 2
+				tr
+					td Catapult
+					td False
+					td 4.5
+				tr
+					td Rook
+					td False
+					td 9
+				tr
+					td Elephant
+					td False
+					td 2
+				tr
+					td Horse
+					td False
+					td 4
 			h2 Conclusion
 			p Thanks for reading, I hope this tutorial was helpful.
 			h2 References

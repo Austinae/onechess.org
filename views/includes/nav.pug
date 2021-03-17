@@ -5,20 +5,22 @@
 		if(loggedIn)
 			li
 				a(href="/logout") Logout
-			li
-				a(href="/western") Western
-			li
-				a(href="/xiangqi") Xiangqi	
-			li
-				a(href="/shogi") Shogi
+			.dropdown
+				button.dropbtn Rules
+					i.fa_fa-caret-down
+				.dropdown-content
+					a(href="/western") Western
+					a(href="/xiangqi") Xiangqi	
+					a(href="/shogi") Shogi
 		else
 			li
 				a(href="/signup") Sign up
 			li
 				a(href="/login") Login
-			li
-				a(href="/western") Western
-			li
-				a(href="/xiangqi") Xiangqi
-			li
-				a(href="/shogi") Shogi
+			.dropdown
+				button.dropbtn Rules
+					i.fa_fa-caret-down
+				.dropdown-content
+					a(href="/western") Western
+					a(href="/xiangqi") Xiangqi	
+					a(href="/shogi") Shogi

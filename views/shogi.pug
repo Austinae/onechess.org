@@ -3,106 +3,248 @@ include ./includes/head
 	#rulesbg
 		#rulestxt
 			h1 Shogi Rules
-			
-
 			h2 Are you a visual learner? No worries, watch this short clip.
-			iframe(width="560" height="315" src="https://www.youtube.com/embed/0UuDiL9CLPI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/0ABrpbjoHCk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 			h2 Notice
 			p Be wary that some of the following sections apply for real-life use only and have for the sole purpose of being informative to those curious enough to take this online game to the board. 
 			p Bob and Alice are two fictional characters that will help you understand how the game is played.
 			h2 Objective
-			p Each player is responsible to his general's safety. The game ends when a general is attacked and cannot make a legal move. This is what is known as checkmate: the general is captured which means the player responsible for that piece has failed to protect it and thus loses.
+			p Each player is responsible to his king's safety. The player who wins furigoma plays first. During each turn, a player may either move a piece that is currently on the board (and potentially promote it, capture an opposing piece, or both) or else drop a piece that has been previously captured. The game ends when a king is attacked and cannot make a legal move. This is what is known as checkmate: the king is captured which means the player responsible for that piece has failed to protect it and thus loses.
 			h2 Player and Role Arrangement 
-			p A player can be responsible for only one general's safety. There are only two general pieces in a xiangqi set. One of them is red, the other is black. Both players agree on which general they will be responsible for. Bob chooses the red general and Alice agrees to play as black. This means that all red pieces now belong to Bob and all black pieces belong to Alice. The other pieces on the board are there to keep the general safe and capture the opponent general. Let us now see how to set the pieces on the board.
+			p In shogi, pieces look alike. So how can we tell pieces apart? Orientation. A piece that belongs to you will be pointing towards your opponent and his pieces will be pointing towards you. Who starts to move? The player who starts is decided through a process called furigoma or 振り駒. Furigoma is when Bob or Alice toss five pawns. If the the number of promoted pawns facing up is higher than unpromoted pawns, then the player who tossed the pawns plays first. If they decide to play another game then they alternate turns as who plays first. The other pieces on the board are there to keep the king safe and capture the opponent king. Let us now see how to set the pieces on the board.
 			h2 Board and Piece Arrangement
-			p Two players face each other and the chessboard separates them. The board must have the decorated design face up. Notice that there is a line of emptinessin the middle of the board, this is the #[strong river] and it has a particular effect on the gameplay. Set the board so that the river is horizontal to you like so:
-			img(src="images/xiangqi/tutorial/1.png" alt="Empty board" width="200" height="200" style="padding:10px;")
-			p The pieces are set up in the two horizontal rows closest to each player like so:
-			img(src="images/xiangqi/tutorial/2.png" alt="Starting position board" width="200" height="200")
+			p Two players face each other and the chessboard and two sideboards separates them. The board must have the decorated design face up. The pieces are set up in the three horizontal rows closest to each player like so:
+			img(src="https://www.chessvariants.com/play/temp/shogi60520b0abad76.png" alt="Starting position board" width="350" height="250" style="padding:20px;")
 			p If you're still struggling to understand how to position the board and set the pieces please watch this video:
-			iframe(width="560" height="315" src="https://www.youtube.com/embed/KTmN2hRbbms" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-			p Since Bob is red do make sure that the red pieces are closest to him. Great! Before we start making moves and checkmating your opponent you should know the rules that apply for each piece.
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/Pkz0LVBg0W4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+			p Great! Before we start making moves and checkmating your opponent you should know the rules that apply for each piece.
 			h2 Naming the pieces
-			h3 &nbsp; General &nbsp;&nbsp;&nbsp; Advisor &nbsp; Catapult &nbsp;&nbsp;&nbsp; Rook  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Horse  &nbsp;&nbsp;&nbsp;&nbsp; Elephant &nbsp;&nbsp; Pawn 
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_king.svg" alt="General piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_advisor.svg" alt="Advisor piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_cannon.svg" alt="Catapult piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_chariot.svg" alt="Rook piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_horse.svg" alt="Horse piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_elephant.svg" alt="Elephant piece" width="50" height="50" style="padding:20px;")
-			img(src="https://www.pychess.org/static/images/pieces/xiangqi/playok/red_pawn.svg" alt="Pawn piece" width="50" height="50" style="padding:20px;")
+			h3 Unpromoted pieces
+			h3 &nbsp; King &nbsp;&nbsp;&nbsp; Gold &nbsp;&nbsp;&nbsp; Silver &nbsp;&nbsp;Horse  &nbsp;&nbsp;Lance &nbsp;Bishop  &nbsp;&nbsp;Rook &nbsp;&nbsp; Pawn 
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sou.png" alt="King piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Skin.png" alt="Gold piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sgin.png" alt="Silver piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Skei.png" alt="Horse piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Skyo.png" alt="Lance piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Skaku.png" alt="Bishop piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Shi.png" alt="Rook piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sfu.png" alt="Pawn piece" width="50" height="50" style="padding:10px;")
+			h3 Promoted pieces
+			h3 &nbsp; Silver &nbsp;Horse  &nbsp;&nbsp;Lance &nbsp;Bishop  &nbsp;&nbsp;Rook &nbsp;&nbsp; Pawn 
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sngin.png" alt="Promoted silver piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Snkei.png" alt="Promoted Horse piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Snkyo.png" alt="Promoted lance piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Suma.png" alt="Promoted bishop piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sryu.png" alt="Promoted rook piece" width="50" height="50" style="padding:10px;")
+			img(src="https://www.chessvariants.com/graphics.dir/koma_dirty/Sto.png" alt="Promoted pawn piece" width="50" height="50" style="padding:10px;")
 			h2 Movement
 			h3 General rules
-			p Each point can only be occupied by one piece. A piece cannot capture another piece if it is of the same color. A piece cannot be placed outside of the board. A piece cannot jump over another piece except for the catapult. If a piece lands on a point occupied by the opponent's piece it can capture it by setting it aside. A piece captures in the direction of movement except for the catapult.
-			p It is also important to note three important zones that have an impact ont the piece movement.
-			h4 Palace
-			img(src="images/xiangqi/tutorial/3.png" alt="Board position" width="200" height="200")
-			h4 Friendly territory
-			img(src="images/xiangqi/tutorial/4.png" alt="Board position" width="200" height="200")
-			h4 Enemy territory
-			img(src="images/xiangqi/tutorial/5.png" alt="Board position" width="200" height="200")
+			p Each square can only be occupied by one piece. A piece cannot capture another piece if it belongs to the same player. A piece cannot be placed outside of the board. A piece cannot jump over another piece except for the Horse. If a piece lands on a square occupied by the opponent's piece it can capture it by setting it on his sideboard. A captured piece can be placed back on the board. A piece captures in the direction of movement.
 			h3 Pieces
-			p A #[strong General] moves one point orthogonally so long as: it is within the palace, the landing point is not attacked by an enemy piece, it leads to the generals facing each other vertically. 
-			img(src="images/xiangqi/tutorial/6.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/7.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/8.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/8.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/9.png" alt="Board position" width="200" height="200")
-			p A #[strong Advisor] moves diagonally so long as it is within the palace.
-			img(src="images/xiangqi/tutorial/10.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/11.png" alt="Board position" width="200" height="200")
-			p A #[strong Catapult] moves any number of points orthogonally. It's different to the rook as it doesn't capture in the direciton of the movement. A catapult can only capture by jumping a single piece of either colour along the path of attack. Any number of unoccupied points may exist between the piece being attacked and the piece being jumped over.  
-			img(src="images/xiangqi/tutorial/12.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/13.png" alt="Board position" width="200" height="200")
-			p A #[strong Rook] moves any number of points orthogonally. It is considered the most powerful piece on the board.
-			img(src="images/xiangqi/tutorial/14.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/15.png" alt="Board position" width="200" height="200")
-			p A #[strong Elephant] moves exactly two points diagonally as long as: no piece in front of the direction of movement, it stays in friendly territory (not crossing the river). 
-			img(src="images/xiangqi/tutorial/16.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/17.png" alt="Board position" width="200" height="200")
-			p A #[strong Horse] moves exactly like a knight in western chess i.e. one point orthogonally followed by one point diagonally away from its original position. The difference is that it cannot jump over a piece as follows: 
-			img(src="images/xiangqi/tutorial/18.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/19.png" alt="Board position" width="200" height="200")
-			p A #[strong Pawn] moves forward by one. It captures in the direction of the movement. After crossing the river the pawn can also move and capture one point on the sides.
-			img(src="images/xiangqi/tutorial/20.png" alt="Board position" width="200" height="200")
-			img(src="images/xiangqi/tutorial/21.png" alt="Board position" width="200" height="200")
+			h4 Unpromoted pieces
+			p A #[strong King] moves one square in any direction so long as the landing square is not attacked by an enemy piece. 
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_king-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Gold] moves one square in any direction apart from both back-diagonal squares.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_gold-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Silver] moves one square in any direction except sideways and backwards.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_silver-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Horse] moves two squares ahead and then one sideways
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_knight_horse-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Lance] moves any number of squares forward.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_lance-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Bishop] moves any number of squares diagonally.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_angle-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Rook] moves any number of squares orthogonally.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_rook-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Pawn] moves one square forward.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_pawn-move.jpg" alt="Board position" width="200" height="200")
+			h4 Promoted Pieces
+			p A #[strong Promoted Silver] moves like a gold.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted_silver-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Promoted Horse] moves like a gold.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted_knight_horse_move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Promoted Lance] moves like a gold.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted_lance-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Promoted Bishop] moves like a bishop and like a king.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted-angle-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Promoted Rook] moves like a rook and like a king.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted_rook-move.jpg" alt="Board position" width="200" height="200")
+			p A #[strong Promoted Pawn] moves like a gold.
+			img(src="http://ancientchess.com/graphics-rules/shogi_japenese_chess_promoted_pawn-move.jpg" alt="Board position" width="200" height="200")
 			h2 Gameplay
 			p Bob and Alice now understand how to move the pieces and capture. It's time for them to play.
-			p They set up the board with Bob as red. Let's play from red/Bob's perspective.
-			img(src="images/xiangqi/tutorial/22.png" alt="Board position" width="200" height="200")
+			p They set up the board as shown above. Let's play from Bob's perspective and let's also assume that Bob has won furigoma which means that Bob will start to play first. The board is set up as follows:
+			img(src="https://www.chessvariants.com/play/temp/shogi60520b0abad76.png" alt="Board position" width="350" height="250" style="padding:20px;")
+			
+
 			h3 #[strong Opening]
 			p A chess opening refers to the initial moves of a chess game, they are often memorized by those who play a lot to avoid making mistakes.
-			p It is important to remember that #[strong red plays first] and then it switches every round from there on. That is why chess players often say that they'd rather play as red as they lead the dance. Bob plays the first move as he is red.
-			img(src="images/xiangqi/tutorial/23.png" alt="Board position" width="200" height="200")
+			p It is important to remember that after Bob plays, Alice will play her turn and then Bob and so on. Playing first is an advantage because you can lead the direction of the game so winning furigoma has some importance. Bob plays the first move.
+			img(src="https://www.chessvariants.com/play/temp/shogi605214b8087b3.png" alt="Board position" width="350" height="250" style="padding:20px;")
+			h3 #[strong Dropping]
+			p Let's assume that a few moves have now been played and some pieces have been captured as a result of these moves. The board looks like this:
+			img(src="https://www.chessvariants.com/play/temp/shogi6052284c34ebe.png" alt="Board position" width="350" height="250" style="padding:20px;")
+			p It is Bob's turn. Bob has captured a silver during the previous move. He would like to drop this piece in front of his king to protect it. To do this he grabs the captured piece from his sideboard and places it on the board unpromoted face up. Rules apply to dropping but I will go into more detail about it later. The resulting position is as follows:
+			img(src="https://www.chessvariants.com/play/temp/shogi60522951d35cc.png" alt="Board position" width="350" height="250" style="padding:20px;")
 			p Bob and Alice play a few moves and land in the middle-game.
 			h3 #[strong Middle-game]
 			p A chess middlegame is not clearly delineated from the opening. The middle-game often refers to the point of the game where both players no longer rely on theory but rather experience and line calculations - line calculation is another one of those chess terms that you'll often see written everywhere and it is defined by the act of looking at many different possible board configurations to see if you can get the upperhand. For Bob and Alice it looks like this:
-			img(src="images/xiangqi/tutorial/24.png" alt="Board position" width="200" height="200")
+			img(src="https://www.chessvariants.com/play/temp/shogi605229c85168b.png" alt="Board position" width="350" height="250" style="padding:20px;")
 			h3 #[strong End-game]
-			p At this point of the game not many chess pieces are left on the board and if one player is at an advantage he/she must try to find a way to checkmate his/her opponent.
-			p Bob and Alice reach this end-game:
-			img(src="images/xiangqi/tutorial/25.png" alt="Board position" width="200" height="200")
-			p Alice is winning because she has more pieces than Bob and the following move will be checkmate.
-			p Alice makes a move
-			img(src="images/xiangqi/tutorial/26.png" alt="Board position" width="200" height="200")
+			p Contrary to western and xiangqi, end-games in shogi still have many pieces on the board because of drops. Therefore endgames have the particularity of being discernible because of how close the game is to being put to an end. In Bob and Alice's game, the end-game looks as follows:
+			img(src="https://www.chessvariants.com/play/temp/shogi60522f24cd57a.png" alt="Board position" width="350" height="250" style="padding:20px;")
+			p Alice is winning because she has many pieces surrounding Bob's king and is very close to checkmating Bob. 
+			p The winning move is:
+			img(src="https://www.chessvariants.com/play/temp/shogi60522f3fdb139.png" alt="Board position" width="350" height="250" style="padding:20px;")
+			h2 Special Rules
+			h3 Promotion
+			p Pieces can only promote if they have the unpromoted face up. 
+			p Gold and king are the only pieces which can't be promoted.
+			h3 Drops
+			p A player can either capture, move or drop a piece.
+			p A piece that has been captured can be dropped onto a vacant square with its unpromoted face up.
+			p Pieces can't be promoted when being dropped.
+			h3 Promotion
+			p Promotion is only possible if the piece is in the promotion zone or leaving it.
+			p The promotion zone is the combination of the three furthest rows from the player.
+			p When a piece is promoted, the piece is flipped over revealing the promoted piece.
+			p A piece can not be unpromoted.
+			p A pawn can not be dropped onto a column which already contains a pawn belonging to the same player.
+			p A pawn can not be dropped to deliver checkmate.
+			p A pawn can not be dropped on the last row.
+			p A lance can not be dropped on the last two rows.
+			p A piece may not be dropped or moved to a square from which it will have no valid moves regardless of which pieces surround it. 
 			h2 Stalemate, draws and repetition
 			p Stalemate is a board state where the player is unable to make a valid move and where the king isn't attacked, instead of being a draw like in western chess it is a loss for the one who can't move.
 			p Both players can also agree on a draw.
-			
-
 			h2 Piece values for position evaluation
 			p A #[strong General] doesn't have a worth because the capture of this piece is the end of the game.
-			p A #[strong Pawn] is worth 1 point before crossing the river and it is what we are basing our evaluation on.
-			p A #[strong Pawn] is worth 2 points after crossing the river.
-			p A #[strong Advisor] is worth 2 points.
-			p A #[strong Catapult] is worth 4.5 points.
-			p A #[strong Rook] is worth 9 points.
-			p A #[strong Elephant] is worth 2 points.
-			p A #[strong Horse] is worth 4 points.
-			
-
+			h3 On board
+			table#evaluation
+				tr
+					td.tdtitle Type
+					td.tdtitle In hand
+					td.tdtitle Promoted
+					td.tdtitle Evaluation
+				tr
+					td Pawn
+					td False
+					td False
+					td 1
+				tr
+					td Lance
+					td False
+					td False
+					td 4.3
+				tr
+					td Horse
+					td False
+					td False
+					td 4.5
+				tr
+					td Silver
+					td False
+					td False
+					td 6.4
+				tr
+					td Gold
+					td False
+					td False
+					td 6.9
+				tr
+					td Bishop
+					td False
+					td False
+					td 8.9
+				tr
+					td Rook
+					td False
+					td False
+					td 10.4
+			h3 In hand
+			table#evaluation
+				tr
+					td.tdtitle Type
+					td.tdtitle In hand
+					td.tdtitle Promoted
+					td.tdtitle Evaluation
+				
+				tr
+					td Pawn
+					td True
+					td False
+					td 1.15
+				tr
+					td Lance
+					td True
+					td False
+					td 4.8
+				tr
+					td Horse
+					td True
+					td False
+					td 5.1
+				tr
+					td Silver
+					td True
+					td False
+					td 7.2
+				tr
+					td Gold
+					td True
+					td False
+					td 7.8
+				tr
+					td Bishop
+					td True
+					td False
+					td 11.1
+				tr
+					td Rook
+					td True
+					td False
+					td 12.7
+			h3 Promoted
+			table#evaluation
+				tr
+					td.tdtitle Type
+					td.tdtitle In hand
+					td.tdtitle Promoted
+					td.tdtitle Evaluation
+				tr
+					td Pawn
+					td False
+					td True
+					td 4.2
+				tr
+					td Lance
+					td False
+					td True
+					td 6.3
+				tr
+					td Horse
+					td False
+					td True
+					td 6.4
+				tr
+					td Silver
+					td False
+					td True
+					td 6.7
+				tr
+					td Bishop
+					td False
+					td True
+					td 11.5
+				tr
+					td Rook
+					td False
+					td True
+					td 13
 			h2 Conclusion
 			p Thanks for reading, I hope this tutorial was helpful.
 			h2 References
 			h3 Getting board position images with highlighting
 			p https://play.mogproject.com/ courtesy of Shogi Bot, Facebook link: https://www.facebook.com/shogibot/
+			h3 A very useful guide to learning the rules of shogi
+			p http://ancientchess.com/page/play-shogi.htm courtesy of rick of ricks

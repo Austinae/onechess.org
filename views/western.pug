@@ -3,13 +3,15 @@ include ./includes/head
 	#rulesbg
 		#rulestxt
 			h1 Western Chess Rules
+			h2 Are you a visual learner? No worries, watch this short clip.
+			iframe(width="560" height="315" src="https://www.youtube.com/embed/NAIQyoPcjNM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
 			h2 Notice
 			p Be wary that some of the following sections apply for real-life use only and have for the sole purpose of being informative to those curious enough to take this online game to the board. 
 			p Bob and Alice are two fictional characters that will help you understand how the game is played.
 			h2 Objective
-			p Each player is responsible to his king’s safety. The game ends when a king is attacked and cannot make a legal move. This is what is known as checkmate: the king is captured which means the player responsible for that piece has failed to protect it and thus loses.
+			p Each player is responsible to his king’s safety. The player with the white pieces plays first. Each turn, a player moves a piece that is currently on the board (and potentially promotes it, captures an opposing piece or both).The game ends when a king is attacked and cannot make a legal move. This is what is known as checkmate: the king is captured which means the player responsible for that piece has failed to protect it and thus loses.
 			h2 Player and Role Arrangement 
-			p A player can be responsible for only one king’s safety. There are only two king pieces in a western chess set and they are recognizable by the cross on top of the head. One of them is white, the other is black. Both players agree on which king they will be responsible for. Bob chooses the white king and Alice agrees to play as black. This means that all white pieces now belong to Bob and all black pieces belong to Alice. The other pieces on the board are there to keep the king safe and capture the opponent king. Let us now see how to set the pieces on the board.
+			p A player can be responsible for only one king’s safety. There are only two king pieces in a western chess set and they are recognizable by the cross on top of the head. One of them is white, the other is black. Both players agree on which king they will be responsible for. Bob chooses the white king and Alice agrees to play as black. This means that all white pieces now belong to Bob and all black pieces belong to Alice. It also means that Bob will play first. If they decide to play another game then they alternate turns as who plays first i.e. who plays as white. The other pieces on the board are there to keep the king safe and capture the opponent king. Let us now see how to set the pieces on the board.
 			h2 Board and Piece Arrangement
 			p Two players face each other and the chessboard separates them. The board must have the checkered pattern face up. Some squares are light-colored while others are darker. Set the board so that the bottom-most left square facing you is dark. If you need more help, here's a useful video from Daniel Rensch on chess.com:
 			iframe(width="560" height="315" src="https://www.youtube.com/embed/nAwp67IR4N4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
@@ -115,11 +117,25 @@ include ./includes/head
 			p The 50-move rule is one where both players play 50 moves each and haven't moved a pawn or made any captures, it is also a draw.
 			h2 Piece values for position evaluation
 			p A #[strong King] doesn't have a worth because the capture of this piece is the end of the game.
-			p A #[strong Pawn] is worth 1 point and it is what we are basing our evaluation on.
-			p A #[strong Queen] is worth 9 points.
-			p A #[strong Rook] is worth 5 points.
-			p A #[strong Bishop] is worth 3 points.
-			p A #[strong Knight] is worth 3 points.
+			table#evaluation
+				tr
+					td.tdtitle Type
+					td.tdtitle Evaluation
+				tr
+					td Pawn
+					td 1
+				tr
+					td Queen
+					td 9
+				tr
+					td Rook
+					td 5
+				tr
+					td Bishop
+					td 3
+				tr
+					td Knight
+					td 3
 			h2 Conclusion
 			p Thanks for reading, I hope this tutorial was helpful.
 			h2 References
