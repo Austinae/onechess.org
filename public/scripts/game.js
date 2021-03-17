@@ -224,17 +224,17 @@ $( document ).ready(function() {
             return letters[pos[0]]+(pos[1]+1)
         }
        
-        function getDateDiff(date){
+        function getDateDiff(date){ //get time difference in millis
             return new Date().getTime()-date;
         }
 
-        function getFutureDate(millis){
+        function getFutureDate(millis){ //get date object from current time + millis
             var dateObj = Date.now();
             dateObj += millis;
             return new Date(dateObj);
         }
 
-        function setClockTime(millis, name){
+        function setClockTime(millis, name){ //sets clock time for visual purposes
             var cd = countdown(Date.now(), getFutureDate(millis), countdown.MINUTES | countdown.SECONDS);
             document.getElementById(name).innerHTML = "&nbsp;"+cd.minutes+":"+(cd.seconds < 10 ? '0' : '')+cd.seconds;
             if(name == "playertime"){
@@ -244,7 +244,7 @@ $( document ).ready(function() {
             }
         }
 
-        function startTimer(endDate, name){
+        function startTimer(endDate, name){ //initiates countdown using date object endDate
             if(name == "playertime"){
                 document.getElementById("timerplayer2").style.backgroundColor = "white";
             }else{
@@ -263,11 +263,11 @@ $( document ).ready(function() {
             return timer;
         }
 
-        function pauseTimer(timer){
+        function pauseTimer(timer){ //pauses timer 
             window.clearInterval(timer);
         }
 
-        function stopCountdown(timer){
+        function stopCountdown(timer){ //pauses timer and ends game
             window.clearInterval(timer);
             if(eye == "white" || eye == "black"){
                 if(isItMyTurn()){
@@ -280,7 +280,7 @@ $( document ).ready(function() {
             }
         }
 
-        function msToMinSec(millis) {
+        function msToMinSec(millis) { //convert millis to secs
             var minutes = Math.floor(millis / 60000);
             var seconds = ((millis % 60000) / 1000).toFixed(0);
             return [minutes, parseInt(seconds)];
@@ -349,7 +349,7 @@ $( document ).ready(function() {
             }
         }
 
-        function drawPiece(context, board, s, d, sqSize, cwidth=null, cheight=null, degree=null, alpha=null){
+        function drawPiece(context, board, s, d, sqSize, cwidth=null, cheight=null, degree=null, alpha=null){ //draws all motifs that appear on the canvas board object
             if(degree!=null){
                 context.save(); 
                 context.translate(cwidth, cheight);
@@ -391,7 +391,7 @@ $( document ).ready(function() {
             }
         }
 
-        function drawSquare(context, position, sqSize, alpha=null, fillStyle=null){
+        function drawSquare(context, position, sqSize, alpha=null, fillStyle=null){ //draw square on canvas given certain arguments
             if(fillStyle!=null){
                 context.fillStyle = fillStyle;
             }
@@ -404,7 +404,7 @@ $( document ).ready(function() {
             }
         }
 
-        function sbPlacement(type){
+        function sbPlacement(type){ //used in shogi for placing pieces on sideboard, converts piece type with position
             switch(type) {
                 case "pawn":
                     return "a1";
@@ -423,8 +423,8 @@ $( document ).ready(function() {
             }
         }
 
-        function strToPlacementPiece(pos){
-            switch(pos) {
+        function strToPlacementPiece(str){ //used in shogi for placing pieces on sideboard, converts position string with piece type
+            switch(str) {
                 case "a1":
                     return "pawn";
                 case "b1":
@@ -442,7 +442,7 @@ $( document ).ready(function() {
             }
         }
 
-        function drawSbPieceAndDecoration(spanElement, nbDeadPieces, owner, type, colour, getSpriteCoord){
+        function drawSbPieceAndDecoration(spanElement, nbDeadPieces, owner, type, colour, getSpriteCoord){ //draws pieces on sideboard
             if(nbDeadPieces[owner][type]!=0){
                 spanElement.parentNode.style.display = "block";
                 spanElement.innerHTML = "&nbsp;"+nbDeadPieces[owner][type];
@@ -464,7 +464,7 @@ $( document ).ready(function() {
             }
         }
 
-        function draw(board, moveNb){ //draws board onto the canvas
+        function draw(board, moveNb){ //draws board gamestate onto the canvas
             
             // Some necessary variables
             var validSquare; 
@@ -502,7 +502,6 @@ $( document ).ready(function() {
                     drawSbPieceAndDecoration(playerSbNbDeadBishop, nbDeadPieces, "wDeadPieces", "bishop", "white", board.getSpriteCoord);
                     drawSbPieceAndDecoration(opponentSbNbDeadRook, nbDeadPieces, "bDeadPieces", "rook", "black", board.getSpriteCoord);
                     drawSbPieceAndDecoration(playerSbNbDeadRook, nbDeadPieces, "wDeadPieces", "rook", "white", board.getSpriteCoord);
-                    // drawPiece(ctxCptOne, board, board.coordinates[30], strToPos("a1"), sqSize, null, null, null, 0.6);
                 }else{
                     drawSbPieceAndDecoration(opponentSbNbDeadPawn, nbDeadPieces, "wDeadPieces", "pawn", "white", board.getSpriteCoord);
                     drawSbPieceAndDecoration(playerSbNbDeadPawn, nbDeadPieces, "bDeadPieces", "pawn", "black", board.getSpriteCoord);
@@ -518,10 +517,7 @@ $( document ).ready(function() {
                     drawSbPieceAndDecoration(playerSbNbDeadBishop, nbDeadPieces, "bDeadPieces", "bishop", "black", board.getSpriteCoord);
                     drawSbPieceAndDecoration(opponentSbNbDeadRook, nbDeadPieces, "wDeadPieces", "rook", "white", board.getSpriteCoord);
                     drawSbPieceAndDecoration(playerSbNbDeadRook, nbDeadPieces, "bDeadPieces", "rook", "black", board.getSpriteCoord);
-                    // drawPiece(ctxCptTwo, board, board.coordinates[30], strToPos("a1"), sqSize, null, null, null, 0.6);
                 }
-
-                // drawPiece(ctxCptOne, board, board.coordinates[30], strToPos("a1"), sqSize, null, null, null, 0.6);
             }
 
 
@@ -580,7 +576,7 @@ $( document ).ready(function() {
         }
 
 
-        class Board{ //superclass that captures and validates board events
+        class Board{ //superclass that holds board variables and validates board events
             constructor(){
                 this.nbSqPSideX;
                 this.nbSqPSideY;
@@ -603,7 +599,7 @@ $( document ).ready(function() {
 
             }
 
-            getSquareOccupancy(gamestate, pov){
+            getSquareOccupancy(gamestate, pov){ //returns two arrays that hold information about which pieces are actively on the board
                 var myOccupiedSquares = [];
                 var opponentOccupiedSquares = [];
                 var piece;
@@ -622,7 +618,7 @@ $( document ).ready(function() {
             }
 
 
-            generateValidMoves(){
+            generateValidMoves(){ //the master function which creates moves for each piece belonging to the player who's about to play
                 var piece;
                 var move;
                 var newState;
@@ -748,11 +744,11 @@ $( document ).ready(function() {
                 this.moves = newMoves;
             }
 
-            isInsideField(pos, field){
+            isInsideField(pos, field){ //used to verify is a position is inside of the baord
                 return ((pos[0]>field[0]&&pos[0]<field[1]&&pos[1]>field[2]&&pos[1]<field[3]) ? true : false);
             }
 
-            generatePositions(pos, offsets, offsetType, myOccupiedSquares, opponentOccupiedSquares, playingField, attacksOnOffset=true, attackOver=false){ 
+            generatePositions(pos, offsets, offsetType, myOccupiedSquares, opponentOccupiedSquares, playingField, attacksOnOffset=true, attackOver=false){ //helps generateValidMoves by creating all possible moves against other pieces but without insight into validity with things such as pinned pieces
                 var moves = {
                     canMove: [],
                     canAttack: []
@@ -820,7 +816,7 @@ $( document ).ready(function() {
         }
 
 
-        class InternationalBoard extends Board {
+        class InternationalBoard extends Board { //holds information about the western chess pieces and rules
             constructor() {
                 super();
                 this.variant = 1;
@@ -835,7 +831,7 @@ $( document ).ready(function() {
                     "images/international/pieces.svg",
                     "images/international/board.png"
                 ];
-                this.coordinates = {
+                this.coordinates = { //holds information about where the piece sprites are from the images file
                     0: [0, 0], //king white (w)
                     1: [0, 1], //king black (b)
                     2: [1, 0], //queen w
@@ -852,7 +848,7 @@ $( document ).ready(function() {
 
             }
 
-            getPromotionConfigs(piece, str){
+            getPromotionConfigs(piece, str){ //holds information about piece promotions
                 var promotionConfigs = []
                 switch(piece.type){
                     case "pawn":
@@ -899,7 +895,7 @@ $( document ).ready(function() {
                 return promotionConfigs;
             }
 
-            areCastlingSquaresCheckFree(state, kingId, type){
+            areCastlingSquaresCheckFree(state, kingId, type){ //helps getPieceMoves by checking if certain squares are being attacked by opponent pieces for the purpose of castling
                 var isValid;
                 var squaresToCheck;
                 var opponentKingId = ((kingId==20) ? 4 : 20);
@@ -955,7 +951,7 @@ $( document ).ready(function() {
                 }
             }
 
-            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ 
+            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ //apply rules of each piece to generate moves
                 var moves;
                 switch(piece.type) {
                     case "king":
@@ -1136,7 +1132,7 @@ $( document ).ready(function() {
             }
         }
 
-        class XiangqiBoard extends Board {
+        class XiangqiBoard extends Board { //holds information about the xiangqi chess pieces and rules
             constructor() {
                 super();
                 this.variant = 2;
@@ -1151,7 +1147,7 @@ $( document ).ready(function() {
                     "images/xiangqi/pieces.png",
                     "images/xiangqi/board.png"
                 ];
-                this.coordinates = {
+                this.coordinates = { //holds information about where the piece sprites are from the images file
                     0: [0, 0], //general/governor/jiang white (w)
                     1: [0, 1], //general/governor/jiang black (b)
                     2: [1, 0], //counselor/senior/shi w
@@ -1169,7 +1165,7 @@ $( document ).ready(function() {
                 };
             }
 
-            getPromotionConfigs(piece, str){
+            getPromotionConfigs(piece, str){ //holds information about piece promotions
                 var promotionConfigs = []
                 switch(piece.type){
                     case "pawn":
@@ -1231,7 +1227,7 @@ $( document ).ready(function() {
                 }
             }
 
-            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ 
+            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ //apply rules of each piece to generate moves
                 switch(piece.type) {
                     case "king":
                         if(piece.colour=="white"){
@@ -1334,7 +1330,7 @@ $( document ).ready(function() {
             }
         }
 
-        class ShogiBoard extends Board {
+        class ShogiBoard extends Board { //holds information about the shogi chess pieces and rules
             constructor(eyeView) {
                 super();
                 this.variant = 3;
@@ -1360,7 +1356,7 @@ $( document ).ready(function() {
                     "images/shogi/board.jpg",
                     "images/shogi/sideboard.jpg"
                 ];
-                this.coordinates = {
+                this.coordinates = { //holds information about where the piece sprites are from the images file
                     0: [0, 2], //king for higher-ranked player/champion black (w)
                     1: [0, 3], //king for lower-ranked player/challenger w
                     2: [0, 0], //king for higher-ranked player/champion white (b)
@@ -1395,7 +1391,7 @@ $( document ).ready(function() {
                     31: [7, 1],  //pawn b p
                 }
             }
-            getPromotionConfigs(piece, str){
+            getPromotionConfigs(piece, str){ //holds information about piece promotions
                 var promotionConfigs = []
                 if(piece.originalType == piece.type && piece.type != "gold" && piece.type != "king"){
                     if(piece.colour == "white"){
@@ -1563,7 +1559,7 @@ $( document ).ready(function() {
                 return promotionConfigs;
             }
 
-            createPrisonerList(){
+            createPrisonerList(){ //used for the purpose of displaying pieces to the sideboard and thus dropping
                 var wDeadPieces = {
                     "pawn":0,
                     "lance":0,
@@ -1596,7 +1592,7 @@ $( document ).ready(function() {
                 this.prisoners =  {"wDeadPieces":wDeadPieces, "bDeadPieces":bDeadPieces}
             }
 
-            getBoardStrEmptySquares(limitX, limitY, occupiedSquares, minX=null, minY=null, skipXs=null, skipYs=null){
+            getBoardStrEmptySquares(limitX, limitY, occupiedSquares, minX=null, minY=null, skipXs=null, skipYs=null){ //used for dropping, returns array with all squares which aren't occupied
                 var allBoardSquares = [];
                 if(minX==null){
                  minX=0;
@@ -1624,7 +1620,7 @@ $( document ).ready(function() {
                 return allBoardSquares;
             }
 
-            getSpriteCoord(type, colour){
+            getSpriteCoord(type, colour){ //used for dropping, returns colour according to spriteCoord
                 switch(type) {
                     case "lance":
                         return ((colour=="white") ? 24 : 26);
@@ -1643,7 +1639,7 @@ $( document ).ready(function() {
                 }
             }
 
-            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ 
+            getPieceMoves(piece, myOccupiedSquares, opponentOccupiedSquares){ //apply rules of each piece to generate moves
                 if(piece.alive){
                     switch(piece.type) {
                         case "king":
@@ -1744,7 +1740,7 @@ $( document ).ready(function() {
             }
         }
 
-        function loader(board, loadImg, allDone) {
+        function loader(board, loadImg, allDone) { //used for executing the code only once images have been received
             var count = board.imageSrcs.length;
             var finishedLoadImg = (board, i)=>{
                 count--;
@@ -1759,7 +1755,7 @@ $( document ).ready(function() {
             }
         }
 
-        function loadImage(board, i, onComplete) {
+        function loadImage(board, i, onComplete) { //works in cooperation with loader
             var onLoad = function (event) {
                 event.target.removeEventListener("load", onLoad);
                 var re = /([\w\d_-]*)\.?[^\\\/]*$/i;
@@ -1779,21 +1775,21 @@ $( document ).ready(function() {
             img.src = board.imageSrcs[i];
         } 
 
-        function getCursorPosition(event, canvas){
+        function getCursorPosition(event, canvas){ //gets cursor position when mouse is pressed on canvas
             var rect = canvas.getBoundingClientRect();
             var position = [Math.floor((event.clientX - rect.left)/sqSize), Math.floor((event.clientY - rect.top)/sqSize)];
             return position
         }
 
-        function returnOpponentEye(e){
+        function returnOpponentEye(e){ //returns opponent's eye
             return ((e=="white") ? "black" : "white");
         }
 
-        function isItMyTurn(){
+        function isItMyTurn(){ //returns true if it a player's turn according to eye and board move
             return (eye == (board.moveNb % 2 == 0 ? "white" : "black"));
         }
 
-        function sbEventListener(board, type, event){
+        function sbEventListener(board, type, event){ //important function, shogi sideboard event listener
             if(isItMyTurn() && board.eyeNb == board.moveNb && isLive){
                 if(eyeView==eye){
                     if(type=="two"){
@@ -1829,7 +1825,7 @@ $( document ).ready(function() {
             }
         }
 
-        function boardEventListener(board, event){
+        function boardEventListener(board, event){ //important function, main board event listener
             if(isItMyTurn() && board.eyeNb == board.moveNb && isLive){ //player's turn, eye on correct gamestate, game is live
                 var pos = getCursorPosition(event, canvas);
                 var str = drawPosToStr(pos);
@@ -2070,7 +2066,7 @@ $( document ).ready(function() {
             } 
         }
         
-        switch(variant){
+        switch(variant){ //displays game information based on variant
             case 1:
                 datagameinfo.innerHTML = "Western Chess "+time+"+"+increment;
                 opponentData.style.width ="400px";
@@ -2120,7 +2116,7 @@ $( document ).ready(function() {
         //   .--.      .-'.      .--.      .--.      .--.      .--.      .`-.      .--.
         // :::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\
         // '      `--'      `.-'      `--'      `--'      `--'      `-.'      `--'      `        
-        loader(board, loadImage, function () { //load images
+        loader(board, loadImage, function () { //load images and only after they have been loaded, start execution of the following
             canvas.width = board.cwidth;
             canvas.height = board.cheight;
             sqSize = board.cwidth / board.nbSqPSideX;
@@ -2137,13 +2133,13 @@ $( document ).ready(function() {
 
             socket.emit('getInitBoardState', board.variant);
 
-            socket.on('getInitBoardState', (state)=>{
+            socket.on('getInitBoardState', (state)=>{ //fetches initial board game state
                 board.gameStates.push(state);
                 socket.emit('getBoardStates', gid);
             });
 
 
-            socket.on('getBoardStates', (states)=>{ //on refresh or search
+            socket.on('getBoardStates', (states)=>{ //get all gamestates
                 board.moveNb = states.length;
                 board.eyeNb = states.length;
                 divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
@@ -2239,7 +2235,7 @@ $( document ).ready(function() {
 
             })
 
-            socket.on('sendGameState', (state)=>{ //dynamic request with opponent move
+            socket.on('sendGameState', (state)=>{ //used to retrieve opponent move in an AJAX manner
                 console.log("i've received the state", state);
                 board.gameStates.push(state);
                 board.moveNb += 1; 
@@ -2316,12 +2312,12 @@ $( document ).ready(function() {
                 }
             })
 
-            socket.on('gameover', (type)=>{
+            socket.on('gameover', (type)=>{ //used to catch events where game is over
                 pauseTimer(histimer);
                 alert(type);
             })
 
-            if(eye == "white" || eye == "black"){
+            if(eye == "white" || eye == "black"){ //adds listeners to board and sideboards (for shogi) only if user is player of the game 
                 canvas.addEventListener('mousedown', (event)=>{boardEventListener(board, event)});
                 if(variant==3){
                     canvasCptTwo.addEventListener('mousedown', (event)=>{sbEventListener(board, "two", event)});
@@ -2332,13 +2328,12 @@ $( document ).ready(function() {
             divEyeNb.innerHTML = "&nbsp;"+board.eyeNb;
             divMoveNb.innerHTML = "&nbsp;"+board.moveNb;
 
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function(e) { //used to navigate through gamestates and change point of view
                 if(board.focus.piece != null){
-                    // console.log("dropped piece :", board.focus.piece.type, board.focus.piece.colour)
                     board.focus.piece = null;
                 }
                 switch (e.keyCode) {
-                    //navigate through gamestates
+                    //navigate through game states
                     case 37:
                         if(board.eyeNb>0){
                             board.eyeNb -= 1;
