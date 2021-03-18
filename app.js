@@ -136,15 +136,7 @@ io.use(sharedsession(SESSION));
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 app.get("/", (req, res) => {
-    sess = req.session;
-	res.render('index', {title: 'Ochess', username: sess.username, loggedIn:req.session.loggedIn})
-	// pool.query('SELECT * FROM "Game" WHERE uid2 = $1;', [0], (err, r) =>{
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 	}
-	// });
-
+	res.render('index', {title: 'Ochess', username: req.session.username, loggedIn:req.session.loggedIn})
 });
 
 app.get('/signup', (req, res)=>{res.render('signup', {title: 'Sign up', loggedIn:req.session.loggedIn})});
@@ -155,15 +147,15 @@ app.get("/login", (req, res)=>{
 });
 
 app.get("/xiangqi", (req, res)=>{
-	res.render('xiangqi', {title: 'Ochess', loggedIn:req.session.loggedIn});
+	res.render('xiangqi', {title: 'Ochess', username: req.session.username, loggedIn:req.session.loggedIn});
 });
 
 app.get("/shogi", (req, res)=>{
-	res.render('shogi', {title: 'Ochess', loggedIn:req.session.loggedIn});
+	res.render('shogi', {title: 'Ochess', username: req.session.username, loggedIn:req.session.loggedIn});
 });
 
 app.get("/western", (req, res)=>{
-	res.render('western', {title: 'Ochess', loggedIn:req.session.loggedIn});
+	res.render('western', {title: 'Ochess', username: req.session.username, loggedIn:req.session.loggedIn});
 });
 
 
@@ -177,7 +169,7 @@ app.get("/logout", (req, res)=>{
 });
 
 app.get("/create", (req, res)=>{
-	res.render('create', {title: 'Create a game', loggedIn:req.session.loggedIn});
+	res.render('create', {title: 'Create a game', username: req.session.username,  loggedIn:req.session.loggedIn});
 });
 
 app.get("/initData/:gid", (req, res)=>{
@@ -196,6 +188,7 @@ app.get("/initData/:gid", (req, res)=>{
 			}else{ //spectator
 				result.eyeView = "spectator";
 			}
+			console.log(r.rows)
 			if(result.uid1 == result.white){
 				result.wusername = result.username;
 				result.wcountry = result.country;
@@ -228,19 +221,28 @@ app.get("/initData/:gid", (req, res)=>{
 app.get("/:gid", (req, res)=>{
 	pool.query('SELECT * FROM "Game" WHERE gid = $1;', [req.params.gid], (err, r) =>{
 		if (err) {
-			console.log(err);
-			res.redirect('/');
+			pool.query('SELECT * FROM "User" WHERE username = $1;', [req.params.gid], (err, r) =>{
+				if(err){
+					console.log(err);
+					res.redirect('/');
+				}else{
+					if(r.rows === undefined || r.rows.length == 0) {
+						res.redirect('/');
+					}else{
+						res.render('user', {title: 'Profile', loggedIn:req.session.loggedIn, username:req.session.username});
+					}
+				}
+			});
 		} else {
 			if(r.rows === undefined || r.rows.length == 0) {
 				res.redirect('/');
 			}else{
 				if(r.rows[0].variant==3){
-					res.render('play', {title: '...Playing', loggedIn:req.session.loggedIn, shogi:true});
+					res.render('play', {title: '...Playing', username: req.session.username, loggedIn:req.session.loggedIn, shogi:true});
 				}else{
-					res.render('play', {title: '...Playing', loggedIn:req.session.loggedIn});
+					res.render('play', {title: '...Playing', username: req.session.username, loggedIn:req.session.loggedIn});
 				}
 			}
-			// console.log(r.command + " New User");
 		}
 	});
 });
@@ -249,11 +251,9 @@ app.get("/:gid", (req, res)=>{
 //POSTS
 
 app.post('/signup', (req, res)=>{
-	const signupQuery = 'INSERT INTO "User"(username, email, password, rw, rx, rs) VALUES($1, $2, $3, $4, $5, $6);'
+	const signupQuery = 'INSERT INTO "User"(username, email, password, rw, rx, rs, firstname, lastname, country) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);'
 	const {username, email, password} = req.body;
-	const values = [username, email, password, 1000, 1000, 1000];
-	//before adding, data needs to go through verification stage.
-	//password also still needs to get hashed
+	const values = [username, email, password, 1000, 1000, 1000, "Bob", "Smith", "Atlantis"];
 	pool.query(signupQuery, values, (err, r) =>{
 		if (err) {
 			console.log(err);
@@ -291,13 +291,13 @@ app.post("/login", (req, res) => {
 });
 
 app.post('/create', (req, res)=>{
-	const insertGameQuery = 'INSERT INTO "Game"(uid1, uid2, variant, time, increment, live, movecount) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING gid'
+	const insertGameQuery = 'INSERT INTO "Game"(uid1, uid2, variant, time, increment, live, movecount) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING gid;'
 	const values = [req.session.uid, 0, req.body.type, req.body.time, req.body.increment, false, 0];
 	pool.query(insertGameQuery, values, (err, r) =>{
 		if (err) {
 			console.log(err);
 			res.render('create', {title: 'Create a game', error: true, loggedIn:req.session.loggedIn});
-		} else {	
+		} else {
 			res.render('waiting', {title: 'Create a game', id: r.rows[0].gid, error: true, loggedIn:req.session.loggedIn});
 		}
 	});
@@ -311,7 +311,7 @@ io.on('connection', (socket) => {
 	console.log('user with id', session.uid, ' connected');
 
 	socket.on('getGames', (data)=>{ //gets games where oppponent is waiting for partner
-		const query = 'SELECT * FROM "Game" WHERE uid2 = $1 LIMIT 13';
+		const query = 'SELECT * FROM "Game" WHERE uid2 = $1 LIMIT 18';
 		pool.query(query, [0], (err, r) =>{
 			if (err) {
 				console.log(err);
@@ -338,17 +338,29 @@ io.on('connection', (socket) => {
 		var rand = Math.floor(Math.random() * Math.floor(2));
 		var query;
 		if(rand == 0){
-			query = 'UPDATE "Game" SET uid2 = $1, live = $2, white = uid1 WHERE gid = $3';
+			// query = 'UPDATE "Game" SET uid2 = $1, live = true, white = uid1 WHERE gid = $2 RETURNING uid1;';
+			query = 'UPDATE "Game" SET uid2 = CASE WHEN uid1 = $1 THEN 0 ELSE $1 END, live = true, white = uid1 WHERE gid = $2 RETURNING uid1;';
 		}else{
-			query = 'UPDATE "Game" SET uid2 = $1, live = $2, white = $1 WHERE gid = $3';
+			// query = 'UPDATE "Game" SET uid2 = $1, live = true, white = $1 WHERE gid = $2 RETURNING uid1;';
+			query = 'UPDATE "Game" SET uid2 = CASE WHEN uid1 = $1 THEN 0 ELSE $1 END, live = true, white = $1 WHERE gid = $2 RETURNING uid1;';
 		}
-		const values = [session.uid, true, data];
+		const values = [session.uid, data];
 		pool.query(query, values, (err, r) =>{
 			if (err) {
 				console.log(err);
 				callback('error');
-			} else {	
-				socket.emit('redirect', '/'+data);
+			} else {
+				console.log(r.rows[0]);
+				if(r.rows === undefined || r.rows.length == 0){
+					socket.emit('alertuser', 'Something went wrong. It is possible that you are joining a game you have created, please do not as it is not intended to be played like so');
+				}else{
+					console.log(r.rows[0]);
+					if(r.rows[0].uid1 == session.uid){
+						socket.emit('alertuser', 'Something went wrong. It is possible that you are joining a game you have created, please do not as it is not intended to be played like so');
+					}else{
+						socket.emit('redirect', '/'+data);
+					}
+				}
 			}
 		});
 	});
@@ -488,6 +500,23 @@ io.on('connection', (socket) => {
 				});
 			}
 		})
+	});
+
+	socket.on('getPlayerInfo', (username)=>{
+		pool.query('SELECT * FROM "User" WHERE username = $1', [username], (err, r) =>{
+			if (err) {
+				console.log(err);
+			} else {
+				if(r.rows === undefined || r.rows.length == 0) {
+					socket.emit("getPlayerInfo", "no");
+				}else{
+					var uservalues = r.rows[0];
+					["uid", "email", "password"].forEach(e => delete uservalues[e]);
+					socket.emit("getPlayerInfo", r.rows[0]);
+				}
+			}
+
+		});
 	});
 
 	socket.on('disconnect', () => {

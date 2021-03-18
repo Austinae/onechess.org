@@ -1,7 +1,3 @@
-*{
-	cursor:url();
-}
-
 body{
 	cursor:auto;
 	margin:0;
@@ -12,27 +8,34 @@ body{
 
 /*Nav bar*/
 
-.nav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+.nav {
+	margin:0;
+	padding:0;
+	font-size: 13px;
 	background-color: #666699;
+	list-style: none;
+	border: 1px solid;
+	position: relative;
+	width: 100%;
+	height: 50px;
+	top:0;
 }
 
+.nav li {
+  text-align: center;
+  float: right;
+  list-style-type: none;
+}
 
-.nav ul li {
+.nav li:nth-child(-n+3) {
 	float: left;
 }
 
 .nav li a {
 	display: block;
-	color: #DFF0D8;
-	font-size: 10px;
-	text-align: center;
-	padding: 8px 12px;
-	margin: 3px;
+	color: #ffffff;
 	text-decoration: none;
+	padding: 8px 12px;
 	border-radius: 8px;
 }
 
@@ -40,6 +43,9 @@ body{
 	background-color: #111;
 }
 
+#username{
+	background-color: red;
+}
 
 /*Drop down for rules*/
 
@@ -50,21 +56,21 @@ body{
 
 .dropdown .dropbtn {
 	color: #DFF0D8;
-	font-size: 10px;
-	text-align: center;
-	padding: 8px 12px;
-	margin: 3px;
-	text-decoration: none;
-	border-radius: 8px;
 	background-color: #666699;
+	border: none;
+	margin:0;
+	padding:0;
+	color: #ffffff;
+	text-decoration: none;
+	padding: 8px 12px;
+	border-radius: 8px;
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-	background-color: red;
+	background-color: purple;
 }
 
 .dropdown-content {
-	border-radius: 8px;
 	display: none;
 	position: absolute;
 	background-color: #f9f9f9;
@@ -80,7 +86,7 @@ body{
 	text-decoration: none;
 	display: block;
 	text-align: left;
-	}
+}
 
 
 .dropdown:hover .dropdown-content {
@@ -407,44 +413,85 @@ p {
 	color: white;
 }
 
+/*Home page*/
+
+#motoctn{
+	padding-top: 30px;
+	padding-left: 100px;
+}
+
+#moto{
+	font-weight: 100px;
+	font-size: 50px;
+	font-family:'Georgia', sans-serif;
+}
+
+#motoe{
+	font-weight: bold;
+	font-family:'Arial', sans-serif;
+}
+
 .joinGame{
 	padding: 5px;
 	margin: 5px;
 	color: white;
+	width: 98%;
 	background-color: #666699;
-	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+	text-align: left;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.joinGame:hover{
+	background-color: #446699;
+}
+
+
+#mainbg{
+	width: 800px;
+	background-color: #666699;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px; 
 }
 
 #gameButtons{
 	width: 500px;
-	height: 500px;
-	border: 1px solid #ccc;
-	margin-left: auto;
-	margin-right: auto;
+	height: 720px;
+	background-color: #52527a;
+  	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  	margin-left: 100px;
 }
 
-#gamestitle{
-	margin-left: auto;
-	margin-right: auto;
-	border: 1px solid #ccc;
-	width: 500px;
-	border-radius: 10px;
-	font-weight: bold;
+#gameButtonsCtn{
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
-#button{
+#createbtncontainer{
+	padding-left: 650px;
+	padding-top: 20px;
+	position: absolute;
+}
+
+#createbtn{
 	text-decoration: none;
 	background-color: #f44336;
 	display: block;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-top: -70px;
 	padding: 15px;
 	border: 50px;
 	width: 100px;
-	height: 20px;
+	height: 40px;
 	border-radius: 15px;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-weight: 900;
+	font-size: 25px;
 	color: white;
+}
+
+#createbtn:hover{
+	background-color: #A44336;
 }
 
 #gameinfo{
@@ -508,22 +555,22 @@ p {
 	font-weight: 5px;
 }
 
-#evaluation {
+.evaluation {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 100%;
+	width: 80%;
 }
 
-#evaluation td, #evaluation th {
+.evaluation td, .evaluation th {
 	border: 1px solid #ddd;
 	padding: 8px;
 }
 
-#evaluation tr:nth-child(even){background-color: #9797d1;}
-#evaluation tr:nth-child(odd){background-color: #8484ba;}
-#evaluation tr:hover {background-color: #7a6bb5;}
+.evaluation tr:nth-child(even){background-color: #9797d1;}
+.evaluation tr:nth-child(odd){background-color: #8484ba;}
+.evaluation tr:hover {background-color: #7a6bb5;}
 
-#evaluation th {
+.evaluation th {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
@@ -534,5 +581,13 @@ p {
 .tdtitle{
 	background-color: #8484d1;
 	font-weight: bold;
-
 }
+
+/*User page*/
+
+#profile{
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+

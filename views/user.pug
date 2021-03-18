@@ -1,0 +1,50 @@
+include ./includes/head
+	include ./includes/nav
+	#mainbg
+		#profile
+
+			p#moto #{username}
+			h1 Ratings
+			table.evaluation#ratings
+				tr
+					td.tdtitle Type
+					td.tdtitle Rating
+			h1 Personal Information
+			table.evaluation#personal
+				tr
+					td.tdtitle Type
+					td.tdtitle Rating
+
+
+	script(src="/socket.io/socket.io.js")
+	script.
+		var socket = io();
+		var url = window.location.href
+		var urlUsername = /([\w\d_-]*)\.?[^\\\/]*$/i;
+		var username = url.match(urlUsername)[1];
+		socket.emit('getPlayerInfo', username);
+
+		socket.on('getPlayerInfo', (response)=>{
+			console.log(response);
+			if(response != "no"){
+				row = $("<tr>").appendTo($('#ratings'));
+				$("<td>").html("Western").appendTo(row).clone();
+				$("<td>").html(response.rw).appendTo(row).clone();
+				row = $("<tr>").appendTo($('#ratings'));
+				$("<td>").html("Xiangqi").appendTo(row).clone();
+				$("<td>").html(response.rx).appendTo(row).clone();
+				row = $("<tr>").appendTo($('#ratings'));
+				$("<td>").html("Shogi").appendTo(row).clone();
+				$("<td>").html(response.rs).appendTo(row).clone();
+				row = $("<tr>").appendTo($('#personal'));
+				$("<td>").html("Country").appendTo(row).clone();
+				$("<td>").html(response.country).appendTo(row).clone();
+				row = $("<tr>").appendTo($('#personal'));
+				$("<td>").html("First name").appendTo(row).clone();
+				$("<td>").html(response.firstname).appendTo(row).clone();
+				row = $("<tr>").appendTo($('#personal'));
+				$("<td>").html("Last name").appendTo(row).clone();
+				$("<td>").html(response.lastname).appendTo(row).clone();
+			}
+		})
+

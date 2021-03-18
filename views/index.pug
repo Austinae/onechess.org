@@ -1,10 +1,16 @@
 include ./includes/head
 	include ./includes/nav
-	a(href="/create" role="button")#button Create Game
-	span
-	span
-	p#gamestitle &nbsp;&nbsp;Available Games
-	#gameButtons
+	#mainbg
+		#motoctn
+			span#moto Ochess
+			span#motoe , #[i no] 
+			span distractions, 
+			span#motoe #[i just] 
+			span chess
+		#createbtncontainer
+			a(href="/create" role="button")#createbtn Create
+		#gameButtonsCtn
+			#gameButtons
 
 	script(src="/socket.io/socket.io.js")
 	script.
@@ -19,9 +25,13 @@ include ./includes/head
 			}
 		}
 
+		socket.on('alertuser', (message)=>{
+			alert("You cannot join a game that you have created");
+		});
+
 		socket.on('redirect', (destination)=>{
 			window.location.href = destination;
-		})
+		});
 				
 		socket.on('getGames', (data)=>{
 			var i;
@@ -45,7 +55,6 @@ include ./includes/head
 						break;
 					
 				}
-				//- button.innerText = "Game id: "+data[i].gid+ ", creator id: "+data[i].uid1+ ", variant: "+data[i].variant+ ", time: "+data[i].time;
 				mydiv.appendChild(button);
 			}
 		})

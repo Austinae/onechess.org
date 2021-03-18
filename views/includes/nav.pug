@@ -1,18 +1,24 @@
 .nav
 	ul
 		li
+			a(href="/") Ochess
+		li
 			a(href="/") Home
 		if(loggedIn)
-			li
-				a(href="/logout") Logout
 			.dropdown
-				button.dropbtn Rules
+				button.dropbtn Rules &#8628;
 					i.fa_fa-caret-down
 				.dropdown-content
 					a(href="/western") Western
 					a(href="/xiangqi") Xiangqi	
 					a(href="/shogi") Shogi
+			li 
+				a(href=username)#username #{username}
+			li
+				a(href="/logout")#logout Logout
 		else
+			li
+				a(href="/") Ochess
 			li
 				a(href="/signup") Sign up
 			li
