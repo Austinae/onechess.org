@@ -1,11 +1,15 @@
 include ./includes/head
 	include ./includes/nav
 	#gameinfo
-		#datagameinfo
+		#pdiv
+			p &nbsp;#[strong ?]
+		#datagameinfo.hideit
 	#divEyeNb
+		#divEyeNbText.hideit Game state number being watched
 		span(style="text-align:center; font-weight: bold;")  &nbsp;&nbsp;&nbsp;&#128065;
 		#eyeNb
 	#divMoveNb
+		#divMoveNbText.hideit Most recent game state available
 		span(style="text-align:center; font-weight: bold;")  &nbsp;&nbsp;&nbsp;&#9759;
 		#moveNb
 	//- #canvases
@@ -57,7 +61,7 @@ include ./includes/head
 				span#valuesRookTwo.sbValues  &nbsp;0
 
 	script(src="/socket.io/socket.io.js")
-	script(src="scripts/game.min.js")
+	script(src="scripts/chess.min.js")
 
 
 

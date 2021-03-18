@@ -12,7 +12,7 @@ body{
 	margin:0;
 	padding:0;
 	font-size: 13px;
-	background-color: #996680;
+	background-color: #666699;
 	list-style: none;
 	border: 1px solid;
 	position: relative;
@@ -497,21 +497,26 @@ p {
 #gameinfo{
 	position: relative;
 	top: 7px;
-	left: 30px;
+	left: 7px;
+	width: 50px;
+	height: 50px;
 	display: inline-block;
+	background-color: #696699;
 }
 
 #datagameinfo{
-	font-size: 15px;
+	font-size: 12px;
 	color: white;
-	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+	padding-left: 20px;
+	font-family: 'Helvetica', 'Arial', sans-serif;
 }
+
 
 #divEyeNb{
 	width: 45px;
 	height: 45px;
-	background-color: orange;
-	margin-top: 10px;
+	background-color: #666699;
+	margin-top: 100px;
 }
 
 #eyeNb{
@@ -523,14 +528,50 @@ p {
 #divMoveNb{
 	width: 45px;
 	height: 45px;
-	background-color: orange;
-	margin-top: 5px;
+	background-color: #666699;
+	margin-top: 10px;
 }	
 
 #moveNb{
 	font-size: 20px;
 	color: white;
 	font-family: 'Impact', 'Helvetica', 'Arial', sans-serif;
+}
+
+
+.hideit {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+}
+
+#divEyeNb:hover #divEyeNbText {
+	visibility: visible;
+}
+
+
+#divMoveNb:hover #divMoveNbText {
+	visibility: visible;
+}
+
+#gameinfo:hover #datagameinfo {
+	visibility: visible;
+}
+
+#pdiv {
+	margin-left: 14px;
+	margin-top: -10px;
+}
+
+#gameinfo p{
+	left: 10px;
+	font-family: 'Impact', 'Arial', sans-serif;
 }
 
 /*For rules*/

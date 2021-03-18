@@ -2068,7 +2068,7 @@ $( document ).ready(function() {
         
         switch(variant){ //displays game information based on variant
             case 1:
-                datagameinfo.innerHTML = "Western Chess "+time+"+"+increment;
+                datagameinfo.innerHTML = "<strong>Mode: Western Chess</strong> "+time+"+"+increment+"<br/><br/>Use arrow keys &#8593; and &#8595; to navigate through moves<br/><br/>Press \"w\" and \"b\" to change perspective";
                 opponentData.style.width ="400px";
                 playerData.style.width ="400px";
                 if(eye=="white"){
@@ -2081,7 +2081,7 @@ $( document ).ready(function() {
                 board = new InternationalBoard(eyeView);
                 break;
             case 2:
-                datagameinfo.innerHTML = "Xiangqi "+time+"+"+increment;
+                datagameinfo.innerHTML = "<strong>Mode: Xiangqi</strong> "+time+"+"+increment+"<br/><br/>Use arrow keys &#8593; and &#8595; to navigate through moves<br/><br/>Press \"w\" and \"b\" to change perspective";
                 opponentData.style.width ="450px";
                 playerData.style.width ="450px";
                 if(eye=="white"){
@@ -2094,7 +2094,7 @@ $( document ).ready(function() {
                 board = new XiangqiBoard(eyeView);
                 break;
             case 3: 
-                datagameinfo.innerHTML = "Shogi "+time+"+"+increment;
+                datagameinfo.innerHTML = "<strong>Mode:Shogi</strong> "+time+"+"+increment+"<br/><br/>Use arrow keys &#8593; and &#8595; to navigate through moves<br/><br/>Press \"w\" and \"b\" to change perspective";
                 opponentData.style.width ="450px";
                 playerData.style.width ="450px";
                 if(eye=="white"){
