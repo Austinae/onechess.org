@@ -1,4 +1,4 @@
-This README will help you run the server.
+Written by Austinae for a final year project, github repo: https://github.com/Austinae/onechessorg.
 
 System conditions:
 Make sure you have redis and postgresql installed on your machine.
